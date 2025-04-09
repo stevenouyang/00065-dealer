@@ -1,3 +1,7 @@
 from django.db import models
 
-# Create your models here.
+class NewsCategory(models.Model):
+    pass
+
+class News(models.Model):
+    pass
