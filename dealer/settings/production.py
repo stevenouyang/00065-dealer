@@ -4,16 +4,16 @@ import os
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    "citra8.id",
     "https://denza-indonesia.id",
+    "denza-indonesia.id",
     "localhost",
     "127.0.0.1",
     "100.118.34.31",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "citra8.id",
     "https://denza-indonesia.id",
+    "denza-indonesia.id",
     "localhost",
     "127.0.0.1",
     "100.118.34.31",
