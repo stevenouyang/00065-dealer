@@ -16,6 +16,9 @@ services:
       DB_PASSWORD: "testsatuduatiga"
       DB_HOST: "103.150.101.6"
       DB_PORT: "5431"
+    volumes:
+      - ./media:/app/media:rw
+      - ./static:/app/static:rw
     deploy:
       resources:
         limits:
