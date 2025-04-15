@@ -1,0 +1,23 @@
+services:
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      # - "127.0.0.1:8012:8000"
+      - "0.0.0.0:8012:8000"
+    container_name: rafael01
+    restart: always
+    environment:
+      SECRET_KEY: "dibalikudangadabatuuuuuu"
+      DB_NAME: "rafael01"
+      DB_USER: "devadmin"
+      DB_PASSWORD: "testsatuduatiga"
+      DB_HOST: "103.150.101.6"
+      DB_PORT: "5431"
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: "512M"

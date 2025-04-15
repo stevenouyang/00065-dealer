@@ -92,8 +92,12 @@ WSGI_APPLICATION = "dealer.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "rafael01",
+        "USER": "devadmin",
+        "PASSWORD": "testsatuduatiga",
+        "HOST": "db",
+        "PORT": "5431",
     }
 }
 
@@ -120,11 +124,15 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "id"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Jakarta"
 
-USE_I18N = True
+USE_L10N = True
+
+USE_I18N = False
+
+USE_THOUSAND_SEPARATOR = True
 
 USE_TZ = True
 
@@ -188,3 +196,24 @@ WAGTAILADMIN_BASE_URL = "http://example.com"
 # if untrusted users are allowed to upload files -
 # see https://docs.wagtail.org/en/stable/advanced_topics/deploying.html#user-uploaded-files
 WAGTAILDOCS_EXTENSIONS = ['csv', 'docx', 'key', 'odt', 'pdf', 'pptx', 'rtf', 'txt', 'xlsx', 'zip']
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://denza-indonesia.id",
+]
+
+AWS_ACCESS_KEY_ID = "009ed54e444dc9645ab3"
+AWS_SECRET_ACCESS_KEY = "FRaaDb55PRWIEyYPjTIrykKhB3FePmciINPGXmvI"
+AWS_STORAGE_BUCKET_NAME = "app8"
+AWS_S3_ENDPOINT_URL = "http://nos.wjv-1.neo.id"  # Your MinIO endpoint
+AWS_S3_ADDRESSING_STYLE = "path"  # Use "virtual" if your MinIO supports it
+AWS_QUERYSTRING_AUTH = False  # Remove query params from URLs
+AWS_S3_SIGNATURE_VERSION = "s3v4"
+AWS_S3_FILE_OVERWRITE = False
+AWS_IS_GZIPPED = True
+AWS_S3_SECURE_URLS = False
+AWS_S3_USE_SLL = True
+
+AWS_S3_OBJECT_PARAMETERS = {
+    "CacheControl": "max-age=86400, public",
+    "Expires": "Fri, 25 Feb 2025 00:00:00 GMT",
+}
