@@ -30,7 +30,7 @@ class CarSpecCategory(models.Model):
 
 class CarSpec(models.Model):
     carspec_category = models.ForeignKey(CarSpecCategory, on_delete=models.CASCADE, related_name="car_specs")
-    title = models.CharField(max_length=255)disunti
+    title = models.CharField(max_length=255)
     icon = models.CharField(max_length=255)
 
     panels = [
