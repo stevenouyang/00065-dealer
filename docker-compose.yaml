@@ -19,8 +19,14 @@ services:
     volumes:
       - ./media:/app/media:rw
       - ./static:/app/static:rw
+    networks:
+      - shared_network
     deploy:
       resources:
         limits:
           cpus: "1.0"
           memory: "512M"
+
+networks:
+  shared_network:
+    external: true
