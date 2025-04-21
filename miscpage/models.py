@@ -17,49 +17,14 @@ import uuid
 import os
 from bs4 import BeautifulSoup
 
-class NewsCategory(index.Indexed, models.Model):
-    title = models.CharField(max_length=30, blank=False)
-    slug = AutoSlugField(populate_from="title", blank=True, null=True)
-
-    # date
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    search_fields = [
-        index.SearchField("title"),
-    ]
-
-    panels = [
-        FieldPanel("title"),
-    ]
-
-    def __str__(self):
-        return self.title
-
-    def get_url(self):
-        return reverse("portfolio:blog_list") + f"?category={self.slug}"
-
-    def get_url_id(self):
-        return reverse("portfolio:blog_list_id") + f"?category={self.slug}"
-
-
-class News(index.Indexed, models.Model):
+class MiscPage(index.Indexed, models.Model):
     title = models.CharField(max_length=150)
-
     slug = AutoSlugField(populate_from="title", blank=True, null=True)
-    small_description = models.TextField(blank=True, null=True)
 
-    category = models.ForeignKey(
-        NewsCategory,
-        blank=True,
-        null=True,
-        related_name="blog_category",
-        on_delete=models.CASCADE,
-    )
-    is_approved = models.BooleanField(default=False)
-    is_recommended = models.BooleanField(default=False)
+    is_show = models.BooleanField(default=False)
+    show_in_footer = models.BooleanField(default=False)
 
-    image = models.ImageField(upload_to="news", null=True, default=None)
+    image = models.ImageField(upload_to="miscpage", null=True, default=None)
     image_processed = ImageSpecField(
         source="image",
         processors=[ResizeToFill(1400, 800)],
@@ -104,10 +69,6 @@ class News(index.Indexed, models.Model):
         blank=True,
     )
 
-    # data
-    total_visit = models.IntegerField(null=True, blank=True)
-    reading_time = models.IntegerField(null=True, blank=True)
-
     # seo
     meta_key = models.TextField(max_length=100, blank=True, null=True)
     meta_desc = models.TextField(max_length=160, blank=True, null=True)
@@ -118,10 +79,8 @@ class News(index.Indexed, models.Model):
 
     panels = [
         FieldPanel("title"),
-        FieldPanel("category"),
-        FieldPanel("small_description"),
-        FieldPanel("is_approved"),
-        FieldPanel("is_recommended"),
+        FieldPanel("is_show"),
+        FieldPanel("show_in_footer"),
         FieldPanel("image"),
         FieldPanel("content"),
         FieldPanel("meta_key"),
@@ -130,10 +89,4 @@ class News(index.Indexed, models.Model):
 
     def __str__(self):
         return self.title
-
-    def get_url(self):
-        return reverse(
-            "portfolio:blog_details",
-            kwargs={"blog_slug": self.slug},
-        )
 

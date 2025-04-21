@@ -1,0 +1,14 @@
+{% extends "wagtailadmin/login.html" %}
+{% load static %}
+
+{% block branding_login %}Modulo by Claverio{% endblock %}
+
+{% block branding_logo %}
+    <img src="{% static 'adminasset/logo.png' %}" alt="Custom Project" width="80" />
+{% endblock %}
+
+{% block branding_title %}PCM Indopesona{% endblock %}
+
+{% block branding_favicon %}
+    <link rel="shortcut icon" href="{% static 'adminasset/logo.png' %}" />
+{% endblock %}

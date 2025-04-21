@@ -9,20 +9,20 @@ from .models import ContactFormSubmission, FAQ
 class ContactFormSubmissionAdmin(SnippetViewSet):
     model = ContactFormSubmission
     menu_label = "Contact Message"
-    icon = "tag"
+    icon = "form"
     menu_order = 20
-    list_display = ("name", "subject")
+    list_display = ("name", "email")
 
 class FAQAdmin(SnippetViewSet):
     model = FAQ
     menu_label = "FAQs"
-    icon = "tag"
+    icon = "openquote"
     menu_order = 20
     list_display = ("question", "answer")
 
 
 class ContactSettingAdmin(SnippetViewSetGroup):
-    menu_icon = "tag"
+    menu_icon = "mail"
     menu_label = "Contact"
     menu_name = "Contact"
     items = (
