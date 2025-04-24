@@ -28,40 +28,41 @@
         <div class="swiper swiper-parent">
             <div class="swiper-wrapper">
                 <!-- Theme Light -->
-                <div class="swiper-slide dark">
-                    <div class="container">
-                        <div class="slider-caption top-left">
-                            <div>
-                                <h2 class="font-primary text-transform-none">2024 Denza D9 MVP</h2>
-                                <p class="fw-light font-primary d-none d-sm-block">The Revolutionary Luxury
-                                    All-Electric Seven-Seater MPV.</p>
-                                <a href="#"
-                                   class="button button-rounded button-border button-white button-light text-transform-none">Pesan
-                                    Test Drive</a>
+                {% for slide in sliders %}
+                    {% if slide.theme == 'LIGHT' %}
+                        <div class="swiper-slide dark">
+                            <div class="container">
+                                <div class="slider-caption top-left">
+                                    <div>
+                                        <h2 class="font-primary text-transform-none">{{ slide.title }}</h2>
+                                        <p class="fw-light font-primary d-none d-sm-block">{{ slide.description }}</p>
+                                        <a href="{{ slide.cta_link }}" {% if slide.cta_blank %}target="_blank"{% endif %}
+                                           class="button button-rounded button-border button-white button-light text-transform-none">{{ slide.cta_text }}</a>
+                                    </div>
+                                </div>
                             </div>
+                            <div class="swiper-slide-bg"
+                                 style="background-image: url('{{ slide.image_processed.url }}');"></div>
                         </div>
-                    </div>
-                    <div class="swiper-slide-bg"
-                         style="background-image: url('https://placehold.co/1920x1080/121212/525252/jpg');"></div>
-                </div>
-                <!-- Theme Dark -->
-                <div class="swiper-slide dark">
-                    <div class="container">
-                        <div class="slider-caption">
-                            <div>
-                                <h2 class="font-primary text-dark text-transform-none">Denza</h2>
-                                <p class="fw-light font-primary text-dark d-none d-sm-block">Bringing New Luxury,
-                                    all-excellent travel experience to <br>high-end family consumers.
-                                </p>
-                                <a href="#"
-                                   class="button button-rounded button-border button-dark button-dark text-transform-none">Tentang
-                                    Denza</a>
+                    {% else %}
+                        <!-- Theme Dark -->
+                        <div class="swiper-slide dark">
+                            <div class="container">
+                                <div class="slider-caption">
+                                    <div>
+                                        <h2 class="font-primary text-dark text-transform-none">{{ slide.title }}</h2>
+                                        <p class="fw-light font-primary text-dark d-none d-sm-block">{{ slide.description }}
+                                        </p>
+                                        <a href="{{ slide.cta_link }}" {% if slide.cta_blank %}target="_blank"{% endif %}
+                                           class="button button-rounded button-border button-dark button-dark text-transform-none">{{ slide.cta_text }}</a>
+                                    </div>
+                                </div>
                             </div>
+                            <div class="swiper-slide-bg"
+                                 style="background-image: url('{{ slide.image_processed.url }}');"></div>
                         </div>
-                    </div>
-                    <div class="swiper-slide-bg"
-                         style="background-image: url('https://placehold.co/1920x1080/e6e6e6/a3a3a3/jpg');"></div>
-                </div>
+                    {% endif %}
+                {% endfor %}
             </div>
             <div class="swiper-pagination"></div>
         </div>
@@ -221,31 +222,34 @@
                          data-layout="fitRows">
 
                         <!-- Car Card - Loop -->
+                        {% for product in products %}
                         <article class="portfolio-item col-12 col-sm-6 col-lg-4 cf-sedan">
                             <div class="grid-inner">
                                 <div class="portfolio-image">
-                                    <a href="#">
-                                        <img src="https://placehold.co/600x400" alt="Open Imagination">
+                                    <a href="{{ product.get_url }}">
+                                        <img src="{{ product.first_image }}" alt="Open Imagination">
+                                        {% if product.is_coming_soon %}
                                         <div class="filter-p-pricing">
                                             <span class="p-price fw-bold ls-1">Coming Soon</span>
                                         </div>
+                                        {% endif %}
                                     </a>
                                 </div>
                                 <div class="portfolio-desc">
-                                    <h3><a href="#">Denza D9</a></h3>
-                                    <span>DENZA D9 dibangun dengan e-platform 3.0 milik BYD, sistem tenaga kami dilengkapi dengan motor listrik 8in1,
-                                    sistem pendingin dengan rentang suhu luas, dan baterai yang efisien.</span>
+                                    <h3><a href="{{ product.get_url }}">{{ product.title }}</a></h3>
+                                    <span>{{ product.small_description }}</span>
                                 </div>
                                 <div class="row g-0 car-p-features font-primary">
                                     <div class="col-lg-4 col-6 p-0"><i class="icon-car-battery"></i><span>
-												2.000 KWH</span></div>
-                                    <div class="col-lg-4 col-6 p-0"><i class="bi-people"></i><span> 7
-												Seater</span></div>
+												{{ product.highlight_battery }}</span></div>
+                                    <div class="col-lg-4 col-6 p-0"><i class="bi-people"></i><span>
+												{{ product.highlight_seat }}</span></div>
                                     <div class="col-lg-4 col-6 p-0"><i class="icon-car-meter"></i><span>
-												600 km</span></div>
+												{{ product.highlight_range }}</span></div>
                                 </div>
                             </div>
                         </article>
+                        {% endfor %}
                     </div>
 
                 </div>

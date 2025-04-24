@@ -6,12 +6,16 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtail import blocks
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
 from wagtail.search import index
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill, ResizeToFit, Adjust
+from django.urls import reverse
+from autoslug import AutoSlugField
 
 
 # Create your models here.
 class Product(index.Indexed, ClusterableModel):
     title = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255, unique=True)
+    slug = AutoSlugField(populate_from="title", blank=True, null=True)
     is_coming_soon = models.BooleanField(default=False)
     is_color_variant = models.BooleanField(default=False)
     small_description = models.TextField(blank=True, null=True)
@@ -92,10 +96,23 @@ class Product(index.Indexed, ClusterableModel):
         return self.title
 
 
+    def get_url(self):
+        return reverse(
+            "core:product_detail",
+            kwargs={"slug": self.slug},
+        )
+
+
 # inline
 class ProductGallery(models.Model):
     product = ParentalKey(Product, related_name='product_gallery')
     image = models.ImageField(upload_to='products/gallery')
+    image_thumbnail = ImageSpecField(
+        source="image",
+        processors=[ResizeToFill(960, 540)],
+        format="png",
+        options={"quality": 90},
+    )
 
 
 # inline

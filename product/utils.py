@@ -3,6 +3,7 @@ import requests
 from io import BytesIO
 from PIL import Image
 from bs4 import BeautifulSoup
+from .models import Product, ProductGallery
 
 # S3 Configuration
 S3_BUCKET_NAME = "app8"
@@ -86,3 +87,13 @@ def process_blog_content(blog_content, max_width, max_height, quality=90):
         elif item.block_type in ["unordered_list", "ordered_list"]:
             item.list_items = extract_list_items(item.value.source)
 
+
+def set_main_images(products):
+    for product in products:
+        images = ProductGallery.objects.filter(product=product)[:2]
+        first_image = images[0] if images else None
+        second_image = images[1] if len(images) > 1 else None
+        product.first_image = first_image.image_thumbnail.url if first_image else None
+        product.second_image = (
+            second_image.image_thumbnail.url if second_image else None
+        )
