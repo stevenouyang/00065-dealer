@@ -10,7 +10,7 @@
                 <!-- Logo
                 ============================================= -->
                 <div id="logo" class="me-lg-0 ms-lg-auto" style="padding-top: 5px; padding-bottom: 5px;">
-                    <a href="#">
+                    <a href="{% url 'core:index' %}">
                         <img class="logo-default"
                              srcset="{% static 'dealer/demos/car/images/denza/logo.png' %}, {% static 'dealer/demos/car/images/denza/logo.png' %}"
                              src="{% static 'dealer/demos/car/images/denza/logo.png' %}" alt="Logo" height="50"
@@ -31,11 +31,11 @@
                 ============================================= -->
                 <nav class="primary-menu with-arrows">
                     <ul class="menu-container">
-                        <li class="menu-item current"><a class="menu-link" href="#">
+                        <li class="menu-item current"><a class="menu-link" href="{% url 'core:index' %}">
                             <div>Beranda</div>
                         </a></li>
                         <!-- Mega Menu -->
-                        <li class="menu-item mega-menu"><a class="menu-link" href="#">
+                        <li class="menu-item mega-menu"><a class="menu-link" href="{% url 'core:product_list' %}">
                             <div>Produk</div>
                         </a>
                             <div class="mega-menu-content mega-menu-style-2">
@@ -46,7 +46,7 @@
                                                 <div class="widget text-center">
 
                                                     <h3 class="mb-0">Luxury Series</h3>
-                                                    <a href="#"
+                                                    <a href="{% url 'core:product_list' %}"
                                                        class="button button-small button-rounded button-border button-dark button-black font-primary"
                                                        style="margin: 10px 0 40px">Lihat Semua Produk</a>
 
@@ -66,15 +66,15 @@
                                 </div>
                             </div>
                         </li>
-                        <li class="menu-item"><a class="menu-link" href="#">
+                        <li class="menu-item"><a class="menu-link" href="{% url 'core:news_list' %}">
                             <div>Berita</div>
                         </a></li>
-                        <li class="menu-item"><a class="menu-link" href="#">
-                            <div>FAQs</div>
-                        </a></li>
-                        <li class="menu-item"><a class="menu-link" href="#">
-                            <div>Kontak</div>
-                        </a></li>
+{#                        <li class="menu-item"><a class="menu-link" href="#">#}
+{#                            <div>FAQs</div>#}
+{#                        </a></li>#}
+{#                        <li class="menu-item"><a class="menu-link" href="#">#}
+{#                            <div>Kontak</div>#}
+{#                        </a></li>#}
                     </ul>
                 </nav><!-- #primary-menu end -->
 

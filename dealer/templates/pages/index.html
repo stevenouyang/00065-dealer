@@ -264,51 +264,25 @@
                 </div>
 
                 <div class="row">
+
+                    {% for news in news_items %}
+
                     <div class="col-md-4 mb-4">
                         <div class="card shadow-sm">
-                            <img class="card-img-top" src="https://placehold.co/450x300/3b3b3b/525252/jpg"
-                                 alt="Card image cap">
+                            <img class="card-img-top" src="{{ news.image_thumbnail.url }}" alt="Card image cap">
                             <div class="card-body">
-                                <h5 class="mb-2 fw-semibold text-uppercase"><a class="text-dark" href="#">Denza New
-                                    Luxury SUV EV</a></h5>
-                                <a href="#" class="card-link">Rilis Produk</a>
-                                <a href="#" class="card-link">12 November 2025</a>
-                                <p class="card-text my-3">Some quick example text to build on the card title and
-                                    make up
-                                    the bulk of the card's content.</p>
+                                <strong class="d-inline-block mb-2 text-black-50">{{ news.category.title }}</strong>
+                                <h5 class="mb-2 fw-semibold text-uppercase"><a class="text-dark" href="{{ news.get_url }}">{{ news.title }}</a></h5>
+                                <span>{{ news.created_at|date:"d M Y" }}</span>
+                                <p class="card-text my-3">{{ news.small_description|truncatechars:120 }}</p>
+                                <a href="{{ news.get_url }}"
+                                   class="button button-3d button-rounded text-transform-none fw-semibold ls-0 m-0">Selengkapnya</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="card shadow-sm">
-                            <img class="card-img-top" src="https://placehold.co/450x300/3b3b3b/525252/jpg"
-                                 alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="mb-2 fw-semibold text-uppercase"><a class="text-dark" href="#">Denza New
-                                    Luxury SUV EV</a></h5>
-                                <a href="#" class="card-link">Rilis Produk</a>
-                                <a href="#" class="card-link">12 November 2025</a>
-                                <p class="card-text my-3">Some quick example text to build on the card title and
-                                    make up
-                                    the bulk of the card's content.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="card shadow-sm">
-                            <img class="card-img-top" src="https://placehold.co/450x300/3b3b3b/525252/jpg"
-                                 alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="mb-2 fw-semibold text-uppercase"><a class="text-dark" href="#">Denza New
-                                    Luxury SUV EV</a></h5>
-                                <a href="#" class="card-link">Rilis Produk</a>
-                                <a href="#" class="card-link">12 November 2025</a>
-                                <p class="card-text my-3">Some quick example text to build on the card title and
-                                    make up
-                                    the bulk of the card's content.</p>
-                            </div>
-                        </div>
-                    </div>
+
+                    {% endfor %}
+
                 </div>
             </div>
         </div>

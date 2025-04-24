@@ -14,6 +14,7 @@ class Product(index.Indexed, ClusterableModel):
     slug = models.SlugField(max_length=255, unique=True)
     is_coming_soon = models.BooleanField(default=False)
     is_color_variant = models.BooleanField(default=False)
+    small_description = models.TextField(blank=True, null=True)
     overview = StreamField(
         [
             (
@@ -65,6 +66,8 @@ class Product(index.Indexed, ClusterableModel):
 
         FieldPanel("is_coming_soon"),
         FieldPanel("is_color_variant"),
+
+        FieldPanel("small_description"),
         FieldPanel("overview"),
         FieldPanel("youtube_embed"),
         FieldPanel("image_dimension"),

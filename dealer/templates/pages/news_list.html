@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block title %}
+Berita dan Blog
 {% endblock %}
 
 {% block og_title %}
@@ -32,7 +33,7 @@
 
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Beranda</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'core:index' %}">Beranda</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Berita dan Blog</li>
                     </ol>
                 </nav>
@@ -48,22 +49,23 @@
         <div class="content-wrap">
             <div class="container">
                 <div class="row">
+                    {% for news in news_items %}
+
                     <div class="col-md-4 mb-4">
                         <div class="card shadow-sm">
-                            <img class="card-img-top" src="https://placehold.co/960x540" alt="Card image cap">
+                            <img class="card-img-top" src="{{ news.image_thumbnail.url }}" alt="Card image cap">
                             <div class="card-body">
-                                <strong class="d-inline-block mb-2 text-black-50">World</strong>
-                                <h4 class="mb-2 fw-semibold text-uppercase"><a class="text-dark" href="#">Volkswagen’s
-                                    Pikes Ppeak racer is a 680 HPAV</a></h4>
-                                <a href="#" class="card-link">1 April 2025</a>
-                                <p class="card-text my-3">Some quick example text to build on the card title and make up
-                                    the bulk of the card's content.</p>
-                                <a href="#"
+                                <strong class="d-inline-block mb-2 text-black-50">{{ news.category.title }}</strong>
+                                <h4 class="mb-2 fw-semibold text-uppercase"><a class="text-dark" href="{{ news.get_url }}">{{ news.title }}</a></h4>
+                                <span>{{ news.created_at|date:"d M Y" }}</span>
+                                <p class="card-text my-3">{{ news.small_description|truncatechars:120 }}</p>
+                                <a href="{{ news.get_url }}"
                                    class="button button-3d button-rounded text-transform-none fw-semibold ls-0 m-0">Selengkapnya</a>
                             </div>
                         </div>
                     </div>
 
+                    {% endfor %}
                 </div>
 
             </div>

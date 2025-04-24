@@ -62,7 +62,13 @@ class News(index.Indexed, models.Model):
     image = models.ImageField(upload_to="news", null=True, default=None)
     image_processed = ImageSpecField(
         source="image",
-        processors=[ResizeToFill(1400, 800)],
+        processors=[ResizeToFill(1920, 600)],
+        format="webP",
+        options={"quality": 90},
+    )
+    image_thumbnail = ImageSpecField(
+        source="image",
+        processors=[ResizeToFill(960, 540)],
         format="webP",
         options={"quality": 90},
     )
@@ -133,7 +139,7 @@ class News(index.Indexed, models.Model):
 
     def get_url(self):
         return reverse(
-            "portfolio:blog_details",
-            kwargs={"blog_slug": self.slug},
+            "core:news_detail",
+            kwargs={"slug": self.slug},
         )
 
