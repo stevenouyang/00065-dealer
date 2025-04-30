@@ -84,6 +84,8 @@ TEMPLATES = [
 
                 "product.context_processors.products_context_processor",
                 "product.context_processors.page_context_processor",
+                "product.context_processors.content_setting_context_processor",
+
 
             ],
         },

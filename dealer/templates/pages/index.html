@@ -36,7 +36,8 @@
                                     <div>
                                         <h2 class="font-primary text-transform-none">{{ slide.title }}</h2>
                                         <p class="fw-light font-primary d-none d-sm-block">{{ slide.description }}</p>
-                                        <a href="{{ slide.cta_link }}" {% if slide.cta_blank %}target="_blank"{% endif %}
+                                        <a href="{{ slide.cta_link }}"
+                                           {% if slide.cta_blank %}target="_blank"{% endif %}
                                            class="button button-rounded button-border button-white button-light text-transform-none">{{ slide.cta_text }}</a>
                                     </div>
                                 </div>
@@ -53,7 +54,8 @@
                                         <h2 class="font-primary text-dark text-transform-none">{{ slide.title }}</h2>
                                         <p class="fw-light font-primary text-dark d-none d-sm-block">{{ slide.description }}
                                         </p>
-                                        <a href="{{ slide.cta_link }}" {% if slide.cta_blank %}target="_blank"{% endif %}
+                                        <a href="{{ slide.cta_link }}"
+                                           {% if slide.cta_blank %}target="_blank"{% endif %}
                                            class="button button-rounded button-border button-dark button-dark text-transform-none">{{ slide.cta_text }}</a>
                                     </div>
                                 </div>
@@ -80,18 +82,18 @@
             <div class="row m-0 dark" data-height-xs="500" data-height-sm="500" data-height-md="350"
                  data-height-lg="350" data-height-xl="350">
                 {% for banner in link_banners %}
-                <a href="{{ banner.cta_link }}" class="col-md-4 image_fade border-right"
-                   style="background: url('{{ banner.image_processed.url }}') no-repeat center center / cover;">
-                    <div class="bg-overlay">
-                        <div
-                                class="bg-overlay-content text-overlay-mask dark align-items-end justify-content-start">
-                            <div class="portfolio-desc py-0">
-                                <h3>{{ banner.title }}</h3>
-                                <span>{{ banner.cta_text }} &rarr;</span>
+                    <a href="{{ banner.cta_link }}" class="col-md-4 image_fade border-right"
+                       style="background: url('{{ banner.image_processed.url }}') no-repeat center center / cover;">
+                        <div class="bg-overlay">
+                            <div
+                                    class="bg-overlay-content text-overlay-mask dark align-items-end justify-content-start">
+                                <div class="portfolio-desc py-0">
+                                    <h3>{{ banner.title }}</h3>
+                                    <span>{{ banner.cta_text }} &rarr;</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
                 {% endfor %}
             </div>
 
@@ -99,19 +101,17 @@
             ============================================= -->
             <div class="section mt-0" style="padding: 100px 0">
                 <div class="running-car mt-6">
-                    <img class="car" src="{% static 'dealer/demos/car/images/moving-car/car.jpg' %}" alt="Image">
-                    <img class="wheel" src="{% static 'dealer/demos/car/images/moving-car/car-tier.png' %}" alt="Image">
+                    <img class="car" src="{{ ctx_content_setting.product_highlight_image_processed.url }}" alt="Image">
+                    {#                    <img class="wheel" src="{% static 'dealer/demos/car/images/moving-car/car-tier.png' %}" alt="Image">#}
                 </div>
                 <div class="container">
                     <div class="row" style="position: relative;">
                         <div class="col-lg-6 offset-lg-6">
                             <div class="heading-block h-large">
-                                <h3>Denza D9<br>Luxury EV</h3>
+                                <h3>{{ ctx_content_setting.product_highlight_title_1 }}<br>{{ ctx_content_setting.product_highlight_title_2 }}
+                                </h3>
                             </div>
-                            <p>Assertively iterate enterprise-wide portals through synergistic products. Efficiently
-                                build adaptive schemas after transparent quality vectors. Phosfluorescently optimize
-                                competitive resources after extensive convergence. Rapidiously optimize high-quality
-                                meta-services via distributed architectures. Credibly deliver 24/365.</p>
+                            <p>{{ ctx_content_setting.product_highlight_desc }}</p>
                         </div>
                     </div>
                 </div>
@@ -129,56 +129,87 @@
                             <h2 class="text-transform-none ls-0" style="font-size: 44px; line-height: 1.2">Coming Soon
                                 Denza Z9 GT</h2>
                         </div>
-                        <span style="color: #BBB;">Eum nihil pretium quas aliqua, laboris ipsam diam congue natoque
-                                mollitia occaecati! Cubilia pede, numquam fringilla proident dis? Molestias
-                                repellat.<br><br>Quas perferendis urna, officiis necessitatibus deserunt recusandae urna
-                                ullamco hac do beatae cubilia iste dolorum, facilisi? Sit, hic, varius!
-                                Sollicitudin.<br><br>Nostrum feugiat beatae proident porro eleifend adipiscing nostrud
-                                aliquid sit.</span>
+
+                        {% if ctx_content_setting.product_detail_desc %}
+                            <span style="color: #BBB;">
+                                {{ ctx_content_setting.product_detail_desc|linebreaksbr }}
+                            </span>
+                        {% endif %}
+
                         <div class="clear"></div>
-                        <a href="#"
-                           class="button button-rounded button-black button-dark ms-0 mt-4">Know More</a>
+
+                        {% if ctx_content_setting.product_detail_button_link %}
+                            <a href="{{ ctx_content_setting.product_detail_button_link }}"
+                               class="button button-rounded button-black button-dark ms-0 mt-4"
+                               {% if ctx_content_setting.product_detail_new_tab %}target="_blank"{% endif %}>
+                                {{ ctx_content_setting.product_detail_button_text }}
+                            </a>
+                        {% endif %}
 
                     </div>
 
                     <div class="col-lg-4 d-md-none d-lg-block text-center">
-                        <img src="{% static 'dealer/demos/car/images/denza/denza-new1.png' %}" alt="Car">
+                        <img src="{{ ctx_content_setting.product_detail_image_processed.url }}" alt="Car">
                     </div>
 
                     <div class="col-lg-4 col-md-6 mt-5 mb-4">
-                        <div class="feature-box fbox-plain mt-5">
-                            <div class="fbox-icon">
-                                <a href="#"><i class="icon-car-battery"></i></a>
-                            </div>
-                            <div class="fbox-content">
-                                <h3>Long Battery Life</h3>
-                                <p>Canvas provides support for Native HTML5 Videos that can be added to a
-                                    Background.</p>
-                            </div>
-                        </div>
 
-                        <div class="feature-box fbox-plain mt-5">
-                            <div class="fbox-icon">
-                                <a href="#"><i class="icon-car-cogs2"></i></a>
+                        {% if ctx_content_setting.product_detail_icon_1 or ctx_content_setting.product_detail_title_1 or ctx_content_setting.product_detail_desc_1 %}
+                            <div class="feature-box fbox-plain mt-5">
+                                {% if ctx_content_setting.product_detail_icon_1 %}
+                                    <div class="fbox-icon">
+                                        <a><i class="{{ ctx_content_setting.product_detail_icon_1 }}"></i></a>
+                                    </div>
+                                {% endif %}
+                                <div class="fbox-content">
+                                    {% if ctx_content_setting.product_detail_title_1 %}
+                                        <h3>{{ ctx_content_setting.product_detail_title_1 }}</h3>
+                                    {% endif %}
+                                    {% if ctx_content_setting.product_detail_desc_1 %}
+                                        <p>{{ ctx_content_setting.product_detail_desc_1 }}</p>
+                                    {% endif %}
+                                </div>
                             </div>
-                            <div class="fbox-content">
-                                <h3>24x7 Service</h3>
-                                <p>Complete control on each &amp; every element that provides endless customization.
-                                </p>
-                            </div>
-                        </div>
+                        {% endif %}
 
-                        <div class="feature-box fbox-plain mt-5">
-                            <div class="fbox-icon">
-                                <a href="#"><i class="icon-car-pump"></i></a>
+                        {% if ctx_content_setting.product_detail_icon_2 or ctx_content_setting.product_detail_title_2 or ctx_content_setting.product_detail_desc_2 %}
+                            <div class="feature-box fbox-plain mt-5">
+                                {% if ctx_content_setting.product_detail_icon_2 %}
+                                    <div class="fbox-icon">
+                                        <a><i class="{{ ctx_content_setting.product_detail_icon_2 }}"></i></a>
+                                    </div>
+                                {% endif %}
+                                <div class="fbox-content">
+                                    {% if ctx_content_setting.product_detail_title_2 %}
+                                        <h3>{{ ctx_content_setting.product_detail_title_2 }}</h3>
+                                    {% endif %}
+                                    {% if ctx_content_setting.product_detail_desc_2 %}
+                                        <p>{{ ctx_content_setting.product_detail_desc_2 }}</p>
+                                    {% endif %}
+                                </div>
                             </div>
-                            <div class="fbox-content">
-                                <h3>Petrol, Diesel &amp; LPG</h3>
-                                <p>Change your Website's Primary Scheme instantly by simply adding the dark class.
-                                </p>
+                        {% endif %}
+
+                        {% if ctx_content_setting.product_detail_icon_3 or ctx_content_setting.product_detail_title_3 or ctx_content_setting.product_detail_desc_3 %}
+                            <div class="feature-box fbox-plain mt-5">
+                                {% if ctx_content_setting.product_detail_icon_3 %}
+                                    <div class="fbox-icon">
+                                        <a><i class="{{ ctx_content_setting.product_detail_icon_3 }}"></i></a>
+                                    </div>
+                                {% endif %}
+                                <div class="fbox-content">
+                                    {% if ctx_content_setting.product_detail_title_3 %}
+                                        <h3>{{ ctx_content_setting.product_detail_title_3 }}</h3>
+                                    {% endif %}
+                                    {% if ctx_content_setting.product_detail_desc_3 %}
+                                        <p>{{ ctx_content_setting.product_detail_desc_3 }}</p>
+                                    {% endif %}
+                                </div>
                             </div>
-                        </div>
+                        {% endif %}
+
                     </div>
+
                 </div>
 
             </div> <!-- Features Area End -->
@@ -201,32 +232,32 @@
 
                         <!-- Car Card - Loop -->
                         {% for product in products %}
-                        <article class="portfolio-item col-12 col-sm-6 col-lg-4 cf-sedan">
-                            <div class="grid-inner">
-                                <div class="portfolio-image">
-                                    <a href="{{ product.get_url }}">
-                                        <img src="{{ product.image_trans_header.url }}" alt="Open Imagination">
-                                        {% if product.is_coming_soon %}
-                                        <div class="filter-p-pricing">
-                                            <span class="p-price fw-bold ls-1">Coming Soon</span>
-                                        </div>
-                                        {% endif %}
-                                    </a>
-                                </div>
-                                <div class="portfolio-desc">
-                                    <h3><a href="{{ product.get_url }}">{{ product.title }}</a></h3>
-                                    <span>{{ product.small_description }}</span>
-                                </div>
-                                <div class="row g-0 car-p-features font-primary">
-                                    <div class="col-lg-4 col-6 p-0"><i class="icon-car-battery"></i><span>
+                            <article class="portfolio-item col-12 col-sm-6 col-lg-4 cf-sedan">
+                                <div class="grid-inner">
+                                    <div class="portfolio-image">
+                                        <a href="{{ product.get_url }}">
+                                            <img src="{{ product.image_trans_header.url }}" alt="Open Imagination">
+                                            {% if product.is_coming_soon %}
+                                                <div class="filter-p-pricing">
+                                                    <span class="p-price fw-bold ls-1">Coming Soon</span>
+                                                </div>
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                    <div class="portfolio-desc">
+                                        <h3><a href="{{ product.get_url }}">{{ product.title }}</a></h3>
+                                        <span>{{ product.small_description }}</span>
+                                    </div>
+                                    <div class="row g-0 car-p-features font-primary">
+                                        <div class="col-lg-4 col-6 p-0"><i class="icon-car-battery"></i><span>
 												{{ product.highlight_battery }}</span></div>
-                                    <div class="col-lg-4 col-6 p-0"><i class="bi-people"></i><span>
+                                        <div class="col-lg-4 col-6 p-0"><i class="bi-people"></i><span>
 												{{ product.highlight_seat }}</span></div>
-                                    <div class="col-lg-4 col-6 p-0"><i class="icon-car-meter"></i><span>
+                                        <div class="col-lg-4 col-6 p-0"><i class="icon-car-meter"></i><span>
 												{{ product.highlight_range }}</span></div>
+                                    </div>
                                 </div>
-                            </div>
-                        </article>
+                            </article>
                         {% endfor %}
                     </div>
 
@@ -249,19 +280,21 @@
 
                     {% for news in news_items %}
 
-                    <div class="col-md-4 mb-4">
-                        <div class="card shadow-sm">
-                            <img class="card-img-top" src="{{ news.image_thumbnail.url }}" alt="Card image cap">
-                            <div class="card-body">
-                                <strong class="d-inline-block mb-2 text-black-50">{{ news.category.title }}</strong>
-                                <h5 class="mb-2 fw-semibold text-uppercase"><a class="text-dark" href="{{ news.get_url }}">{{ news.title }}</a></h5>
-                                <span>{{ news.created_at|date:"d M Y" }}</span>
-                                <p class="card-text my-3">{{ news.small_description|truncatechars:120 }}</p>
-                                <a href="{{ news.get_url }}"
-                                   class="button button-3d button-rounded text-transform-none fw-semibold ls-0 m-0">Selengkapnya</a>
+                        <div class="col-md-4 mb-4">
+                            <div class="card shadow-sm">
+                                <img class="card-img-top" src="{{ news.image_thumbnail.url }}" alt="Card image cap">
+                                <div class="card-body">
+                                    <strong class="d-inline-block mb-2 text-black-50">{{ news.category.title }}</strong>
+                                    <h5 class="mb-2 fw-semibold text-uppercase"><a class="text-dark"
+                                                                                   href="{{ news.get_url }}">{{ news.title }}</a>
+                                    </h5>
+                                    <span>{{ news.created_at|date:"d M Y" }}</span>
+                                    <p class="card-text my-3">{{ news.small_description|truncatechars:120 }}</p>
+                                    <a href="{{ news.get_url }}"
+                                       class="button button-3d button-rounded text-transform-none fw-semibold ls-0 m-0">Selengkapnya</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
                     {% endfor %}
 
@@ -273,51 +306,68 @@
         ============================================= -->
         <div class="section m-0 p-0">
             <div class="row align-items-stretch">
-                <!-- Half Section 2 -->
-                <div class="col-lg-6 bg-color"
-                     style="background: url('https://placehold.co/600x400/e6e6e6/a3a3a3/jpg') center center no-repeat; background-size: cover;">
-                    <div class="col-padding">
-                        <i class="i-plain i-xlarge icon-car-care inline-block" style="margin-bottom: 20px;"></i>
+                <!-- Bottom CTA 1 with White Overlay -->
+                <div class="col-lg-6 bg-color position-relative"
+                     style="position: relative; background: url('{{ ctx_content_setting.bottom_cta_1_image_processed.url }}') center center no-repeat; background-size: cover;">
+                    <div style="background-color: rgba(255,255,255,0.65); position: absolute; top: 0; left: 0; right: 0; bottom: 0;"></div>
+                    <div class="col-padding position-relative" style="position: relative; z-index: 1;">
+                        {% if ctx_content_setting.bottom_cta_1_icon %}
+                            <i class="i-plain i-xlarge {{ ctx_content_setting.bottom_cta_1_icon }} inline-block"
+                               style="margin-bottom: 20px;"></i>
+                        {% endif %}
                         <div class="heading-block border-0" style="margin-bottom: 20px;">
-                            <h3>Rasakan Sensasi Berkendara Mewah</h3>
+                            <h3>{{ ctx_content_setting.bottom_cta_1_title }}</h3>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, aspernatur, doloribus.
-                            Aspernatur, maiores earum eaque quas temporibus eius dolore dicta.</p>
-                        <a href="#" class="button button-large button-dark button-black button-rounded m-0">Test
-                            Drive</a>
+                        <p>{{ ctx_content_setting.bottom_cta_1_desc }}</p>
+                        {% if ctx_content_setting.bottom_cta_1_button_link %}
+                            <a href="{{ ctx_content_setting.bottom_cta_1_button_link }}"
+                               class="button button-large button-dark button-black button-rounded m-0"
+                               {% if ctx_content_setting.bottom_cta_1_new_tab %}target="_blank"{% endif %}>
+                                {{ ctx_content_setting.bottom_cta_1_button_text }}
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
-                <!-- Half Section 1 -->
-                <div class="col-lg-6 dark bg-color"
-                     style="background: url('https://placehold.co/600x400/2b2b2b/525252/jpg') center center no-repeat; background-size: cover;">
-                    <div class="col-padding">
-                        <i class="i-plain i-xlarge icon-car-service inline-block"
-                           style="margin-bottom: 20px;"></i>
+
+                <!-- Bottom CTA 2 with Black Overlay -->
+                <div class="col-lg-6 dark bg-color position-relative"
+                     style="position: relative; background: url('{{ ctx_content_setting.bottom_cta_2_image_processed.url }}') center center no-repeat; background-size: cover;">
+                    <div style="background-color: rgba(0,0,0,0.65); position: absolute; top: 0; left: 0; right: 0; bottom: 0;"></div>
+                    <div class="col-padding position-relative" style="position: relative; z-index: 1;">
+                        {% if ctx_content_setting.bottom_cta_2_icon %}
+                            <i class="i-plain i-xlarge {{ ctx_content_setting.bottom_cta_2_icon }} inline-block"
+                               style="margin-bottom: 20px;"></i>
+                        {% endif %}
                         <div class="heading-block border-0" style="margin-bottom: 20px;">
-                            <h3>Konsultasi Eksklusif</h3>
+                            <h3>{{ ctx_content_setting.bottom_cta_2_title }}</h3>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, aspernatur, doloribus.
-                            Aspernatur, maiores earum eaque quas temporibus eius dolore dicta.</p>
-                        <a href="#" class="button button-rounded button-white button-light m-0">Hubungi Kami</a>
+                        <p>{{ ctx_content_setting.bottom_cta_2_desc }}</p>
+                        {% if ctx_content_setting.bottom_cta_2_button_link %}
+                            <a href="{{ ctx_content_setting.bottom_cta_2_button_link }}"
+                               class="button button-rounded button-white button-light m-0"
+                               {% if ctx_content_setting.bottom_cta_2_new_tab %}target="_blank"{% endif %}>
+                                {{ ctx_content_setting.bottom_cta_2_button_text }}
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
 
+
         <!-- Before Footer Section
         ============================================= -->
         <div class="section m-0"
-             style="background: #FFF url('https://placehold.co/1920x1080/121212/525252/jpg') center bottom no-repeat; background-size: cover; height: 770px">
+             style="background: #FFF url('{{ ctx_content_setting.footer_image_processed.url }}') center bottom no-repeat; background-size: cover; height: 770px">
             <div class="mx-auto dark center" style="max-width: 570px">
                 <div class="heading-block dark mb-4 border-0">
                     <h2 class="text-transform-none fw-medium">DENZA Indonesia</h2>
-                    <p style="color: #DDD; margin-top: 10px">DENZA, mobil listrik persembahan BYD, menawarkan
-                        pengalaman perjalanan yang mewah dan tak terlupakan bagi keluarga kelas atas.</p>
+                    <p style="color: #DDD; margin-top: 10px">{{ ctx_content_setting.footer_description }}</p>
                 </div>
                 <a href="#" class="text-uppercase fw-bold ls-2 text-white"
                    style="font-size: 12px; border-bottom: 1px solid #FFF">Pesan Test Drive</a> &rarr;
             </div>
         </div>
-    </section><!-- #content end -->
+    </section>
 
 {% endblock %}

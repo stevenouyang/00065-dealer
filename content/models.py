@@ -72,12 +72,30 @@ class BrandingSetting(SingletonModel):
 
 class ContentSetting(SingletonModel):
     product_page_image = models.ImageField(upload_to='products/', blank=True, null=True)
+    product_page_image_processed = ImageSpecField(
+        source="product_page_image",
+        processors=[ResizeToFill(1920, 600)],
+        format="webP",
+        options={"quality": 90},
+    )
 
     footer_image = models.ImageField(upload_to='footer/', blank=True, null=True)
+    footer_image_processed = ImageSpecField(
+        source="product_page_image",
+        processors=[ResizeToFill(1920, 1080)],
+        format="webP",
+        options={"quality": 90},
+    )
     footer_description = models.CharField(max_length=140, blank=True, null=True)
 
     bottom_cta_1_title = models.CharField(max_length=40, blank=True, null=True)
     bottom_cta_1_image = models.ImageField(upload_to='cta/', blank=True, null=True)
+    bottom_cta_1_image_processed = ImageSpecField(
+        source="bottom_cta_1_image",
+        processors=[ResizeToFill(600, 400)],
+        format="webP",
+        options={"quality": 90},
+    )
     bottom_cta_1_desc = models.CharField(max_length=100, blank=True, null=True)
     bottom_cta_1_button_text = models.CharField(max_length=20, blank=True, null=True)
     bottom_cta_1_icon = models.CharField(max_length=20, blank=True, null=True)
@@ -86,6 +104,12 @@ class ContentSetting(SingletonModel):
 
     bottom_cta_2_title = models.CharField(max_length=40, blank=True, null=True)
     bottom_cta_2_image = models.ImageField(upload_to='cta/', blank=True, null=True)
+    bottom_cta_2_image_processed = ImageSpecField(
+        source="bottom_cta_2_image",
+        processors=[ResizeToFill(600, 400)],
+        format="webP",
+        options={"quality": 90},
+    )
     bottom_cta_2_desc = models.CharField(max_length=100, blank=True, null=True)
     bottom_cta_2_button_text = models.CharField(max_length=20, blank=True, null=True)
     bottom_cta_2_icon = models.CharField(max_length=20, blank=True, null=True)
@@ -93,21 +117,34 @@ class ContentSetting(SingletonModel):
     bottom_cta_2_new_tab = models.BooleanField(default=False)
 
     product_highlight_image = models.ImageField(upload_to='highlights/', blank=True, null=True)
+    product_highlight_image_processed = ImageSpecField(
+        source="product_highlight_image",
+        format="webP",
+        options={"quality": 90},
+    )
     product_highlight_title_1 = models.CharField(max_length=20, blank=True, null=True)
     product_highlight_title_2 = models.CharField(max_length=20, blank=True, null=True)
     product_highlight_desc = models.CharField(max_length=255, blank=True, null=True)
 
     product_detail_image = models.ImageField(upload_to='details/', blank=True, null=True)
-    product_detail_desc = models.CharField(max_length=255, blank=True, null=True)
+    product_detail_image_processed = ImageSpecField(
+        source="product_detail_image",
+        format="webP",
+        options={"quality": 90},
+    )
+    product_detail_desc = models.CharField(max_length=500, blank=True, null=True)
     product_detail_button_text = models.CharField(max_length=20, blank=True, null=True)
     product_detail_button_link = models.URLField(blank=True, null=True)
     product_detail_new_tab = models.BooleanField(default=False)
 
     product_detail_icon_1 = models.CharField(max_length=20, blank=True, null=True)
+    product_detail_title_1 = models.CharField(max_length=30, blank=True, null=True)
     product_detail_desc_1 = models.CharField(max_length=80, blank=True, null=True)
     product_detail_icon_2 = models.CharField(max_length=20, blank=True, null=True)
+    product_detail_title_2 = models.CharField(max_length=30, blank=True, null=True)
     product_detail_desc_2 = models.CharField(max_length=80, blank=True, null=True)
     product_detail_icon_3 = models.CharField(max_length=20, blank=True, null=True)
+    product_detail_title_3 = models.CharField(max_length=30, blank=True, null=True)
     product_detail_desc_3 = models.CharField(max_length=80, blank=True, null=True)
 
 
@@ -153,10 +190,13 @@ class ContentSetting(SingletonModel):
             FieldPanel("product_detail_button_link"),
             FieldPanel("product_detail_new_tab"),
             FieldPanel("product_detail_icon_1"),
+            FieldPanel("product_detail_title_1"),
             FieldPanel("product_detail_desc_1"),
             FieldPanel("product_detail_icon_2"),
+            FieldPanel("product_detail_title_2"),
             FieldPanel("product_detail_desc_2"),
             FieldPanel("product_detail_icon_3"),
+            FieldPanel("product_detail_title_3"),
             FieldPanel("product_detail_desc_3"),
         ], heading="Product Detail"),
     ]
