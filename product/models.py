@@ -194,7 +194,7 @@ class CarSpec(index.Indexed, models.Model):
     ]
 
     def __str__(self):
-        return self.title
+        return f"{self.title} - {self.carspec_category.title}"
 
 
 # inline

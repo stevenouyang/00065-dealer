@@ -1,9 +1,11 @@
 from django.shortcuts import render, get_object_or_404
+from collections import defaultdict
 from news.models import News
 from miscpage.models import MiscPage
-from .models import Product, ProductGallery
+from .models import Product, ProductGallery, CarSpecCategory, CarSpec, ProductCarSpec
 from content.models import Slider, LinkBanner
 from .utils import process_blog_content, process_product_content, set_main_images, process_page_content
+
 
 
 
@@ -28,7 +30,6 @@ def product_list(request):
     context = {"products": products,}
     return render(request, "pages/product_list.html", context)
 
-
 def product_detail(request, slug):
     max_width = 800
     max_height = 600
@@ -36,11 +37,30 @@ def product_detail(request, slug):
 
     product_item = get_object_or_404(Product, slug=slug)
     product_galleries = ProductGallery.objects.filter(product=product_item)
+    product_color_variants = product_item.product_color_variants.all()
+
     process_product_content(product_item.overview, max_width, max_height, quality)
 
-    context = {'product_item': product_item, "product_galleries": product_galleries,}
-    return render(request, "pages/product_detail.html", context)
+    # Group ProductCarSpec by CarSpecCategory
+    car_spec_map = defaultdict(list)
+    product_specs = product_item.product_car_specs.select_related('carspec__carspec_category')
 
+    for spec in product_specs:
+        category = spec.carspec.carspec_category
+        car_spec_map[category].append({
+            'title': spec.carspec.title,
+            'icon': spec.carspec.icon,
+            'value': spec.value
+        })
+
+    context = {
+        "product_item": product_item,
+        "product_galleries": product_galleries,
+        "car_specs_by_category": dict(car_spec_map),
+        "product_color_variants": product_color_variants,
+    }
+
+    return render(request, "pages/product_detail.html", context)
 
 def news_list(request):
     news_items = News.objects.filter(is_approved=True)

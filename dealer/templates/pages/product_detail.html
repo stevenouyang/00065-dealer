@@ -26,15 +26,10 @@
         /*--------------------
         swiper pagination color
         ---------------------*/
-        .dark .swiper-pagination span:nth-child(1):hover,
-        .dark .swiper-pagination span:nth-child(1) {
-            background-color: #7F858D
-        }
-
-        .dark .swiper-pagination span:nth-child(2):hover,
-        .dark .swiper-pagination span:nth-child(2) {
-            background-color: #CB394E
-        }
+        {% for color_variant in product_color_variants %}
+        .dark .swiper-pagination span:nth-child({{ forloop.counter }}):hover,
+        .dark .swiper-pagination span:nth-child({{ forloop.counter }}) {background-color: #7F858D}
+        {% endfor %}
 
 
         /*--------------------
@@ -93,21 +88,15 @@
 
         <div class="swiper swiper-parent">
             <div class="swiper-wrapper">
-                <div class="swiper-slide">
+                {% for color_variant in product_color_variants %}
+                  <div class="swiper-slide">
                     <div class="swiper-slide-bg"
                          style="background: linear-gradient(15deg, #C8CED6 50%, #7F858D 50%);"></div>
                     <div class="slider-caption slider-caption-center mt-6">
-                        <img src="https://placehold.co/700x280/28566b/7F858D/png">
+                      <img src="{{ color_variant.image.url }}" alt="{{ color_variant.color }}" class="img-fluid" />
                     </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="swiper-slide-bg"
-                         style="background: linear-gradient(15deg, #C8CED6 50%, #b3f5ff 50%);"></div>
-                    <div class="slider-caption slider-caption-center mt-6">
-                        <img src="https://placehold.co/700x280/adadad/7F858D/png">
-                    </div>
-                </div>
-
+                  </div>
+                {% endfor %}
             </div>
             <div class="swiper-pagination"></div>
         </div>
@@ -221,134 +210,26 @@
                         <div id="section-spec" class="page-section mt-5">
                             <h3 class="mb-3">Spesifikasi Teknis</h3>
                             <div class="row">
-                                <div class="col-lg-6 mt-3">
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col" class="color">Engine</th>
-                                            <th scope="col"></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td scope="row" class="text-black-50">Engine layout:</td>
-                                            <td class="text-end fw-semibold">Rear engine</td>
-                                        </tr>
-                                        <tr>
-                                            <td scope="row" class="text-black-50">Number of cylinders:</td>
-                                            <td class="text-end fw-semibold">6</td>
-                                        </tr>
-                                        <tr>
-                                            <td scope="row" class="text-black-50">Displacement:</td>
-                                            <td class="text-end fw-semibold">2,981 cm³</td>
-                                        </tr>
-                                        <tr>
-                                            <td scope="row" class="text-black-50">Power (kW):</td>
-                                            <td class="text-end fw-semibold">331 kW</td>
-                                        </tr>
-                                        <tr>
-                                            <td scope="row" class="text-black-50">Power (hp):</td>
-                                            <td class="text-end fw-semibold">450 PS</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="col-lg-6 mt-3">
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col" class="color">Fuel</th>
-                                            <th scope="col"></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td scope="row" class="text-black-50">Fuel consumption* urban:</td>
-                                            <td class="text-end fw-semibold">10.9 l/100 km</td>
-                                        </tr>
-                                        <tr>
-                                            <td scope="row" class="text-black-50">Fuel consumption* non-urban:</td>
-                                            <td class="text-end fw-semibold">7.1 l/100 km</td>
-                                        </tr>
-                                        <tr>
-                                            <td scope="row" class="text-black-50">Fuel consumption* combined:</td>
-                                            <td class="text-end fw-semibold">8.5 l/100 km</td>
-                                        </tr>
-                                        <tr>
-                                            <td scope="row" class="text-black-50">CO2 emissions* combined:</td>
-                                            <td class="text-end fw-semibold">192 g/km</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="col-lg-6 mt-4">
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col" class="color">Body</th>
-                                            <th scope="col"></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td scope="row" class="text-black-50">Length:</td>
-                                            <td class="text-end fw-semibold">4,528 mm</td>
-                                        </tr>
-                                        <tr>
-                                            <td scope="row" class="text-black-50">Width:</td>
-                                            <td class="text-end fw-semibold">1,852 mm</td>
-                                        </tr>
-                                        <tr>
-                                            <td scope="row" class="text-black-50">Height:</td>
-                                            <td class="text-end fw-semibold">1,284 mm</td>
-                                        </tr>
-                                        <tr>
-                                            <td scope="row" class="text-black-50">Wheelbase:</td>
-                                            <td class="text-end fw-semibold">.31 cW</td>
-                                        </tr>
-                                        <tr>
-                                            <td scope="row" class="text-black-50">Drag coefficient (Cd):</td>
-                                            <td class="text-end fw-semibold">2,450 mm</td>
-                                        </tr>
-                                        <tr>
-                                            <td scope="row" class="text-black-50">Unladen weight (DIN):</td>
-                                            <td class="text-end fw-semibold">1,515 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td scope="row" class="text-black-50">Unladen weight (EU):</td>
-                                            <td class="text-end fw-semibold">1,590 kg</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="col-lg-6 mt-4">
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col" class="color">Performance</th>
-                                            <th scope="col"></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td scope="row" class="text-black-50">Top speed:</td>
-                                            <td class="text-end fw-semibold">4,528 mm</td>
-                                        </tr>
-                                        <tr>
-                                            <td scope="row" class="text-black-50">Acceleration:</td>
-                                            <td class="text-end fw-semibold">1,852 mm</td>
-                                        </tr>
-                                        <tr>
-                                            <td scope="row" class="text-black-50">In-gear acceleration:</td>
-                                            <td class="text-end fw-semibold">1,284 mm</td>
-                                        </tr>
-                                        <tr>
-                                            <td scope="row" class="text-black-50">Flexibility/5th Gear:</td>
-                                            <td class="text-end fw-semibold">.31 cW</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                {% for category, specs in car_specs_by_category.items %}
+                                    <div class="col-lg-6 mt-3">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col" class="color">{{ category.title }}</th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for spec in specs %}
+                                                <tr>
+                                                    <td scope="row" class="text-black-50">{{ spec.title }}:</td>
+                                                    <td class="text-end fw-semibold">{{ spec.value }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                {% endfor %}
                             </div>
                         </div>
 

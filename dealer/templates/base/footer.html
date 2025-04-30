@@ -1,4 +1,5 @@
 {% load static %}
+{% load wagtailsettings_tags %}
 
 <footer id="footer" class="dark border-0" style="background-color: #e6e6e6;">
     <div class="container-fluid px-5">
@@ -14,12 +15,24 @@
                             <div class="widget widget_links widget-li-noicon">
                                 <h4 class="text-black">Social Media</h4>
                                 <ul>
-                                    <li><a href="#" target="_blank">Instagram</a></li>
-                                    <li><a href="#" target="_blank">Tiktok</a></li>
-                                    <li><a href="#" target="_blank">Youtube</a></li>
-                                    <li><a href="#" target="_blank">Facebook</a></li>
-                                    <li><a href="#" target="_blank">Linkedin</a></li>
-
+                                    {% if globalsetting.SocialSetting.instagram_link %}
+                                        <li><a href="{{ globalsetting.SocialSetting.instagram_link }}" target="_blank">Instagram</a>
+                                        </li>
+                                    {% endif %}
+                                    {% if globalsetting.SocialSetting.tiktok_link %}
+                                        <li><a href="{{ globalsetting.SocialSetting.tiktok_link }}" target="_blank">Tiktok</a></li>
+                                    {% endif %}
+                                    {% if globalsetting.SocialSetting.youtube_link %}
+                                        <li><a href="{{ globalsetting.SocialSetting.youtube_link }}" target="_blank">Youtube</a></li>
+                                    {% endif %}
+                                    {% if globalsetting.SocialSetting.facebook_link %}
+                                        <li><a href="{{ globalsetting.SocialSetting.facebook_link }}" target="_blank">Facebook</a>
+                                        </li>
+                                    {% endif %}
+                                    {% if globalsetting.SocialSetting.linkedin_link %}
+                                        <li><a href="{{ globalsetting.SocialSetting.linkedin_link }}" target="_blank">Linkedin</a>
+                                        </li>
+                                    {% endif %}
                                 </ul>
                             </div>
                         </div>
@@ -27,11 +40,10 @@
                             <div class="widget widget_links widget-li-noicon">
                                 <h4 class="text-black">Product</h4>
                                 <ul>
-                                    <li><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
+                                    {% for product in ctx_products %}
+                                        <li><a href="{{ product.get_url }}">{{ product.title|truncatechars:25 }}</a>
+                                        </li>
+                                    {% endfor %}
 
                                 </ul>
                             </div>
@@ -40,11 +52,9 @@
                             <div class="widget widget_links widget-li-noicon">
                                 <h4 class="text-black">Latest News</h4>
                                 <ul>
-                                    <li><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
+                                    {% for news in ctx_latest_news %}
+                                        <li><a href="{{ news.get_url }}">{{ news.title|truncatechars:25 }}</a></li>
+                                    {% endfor %}
                                 </ul>
                             </div>
                         </div>

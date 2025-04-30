@@ -25,3 +25,11 @@ def content_setting_context_processor(request):
     """
     ctx_content_setting = ContentSetting.objects.first()
     return {'ctx_content_setting': ctx_content_setting}
+
+
+def latest_news_context_processor(request):
+    """
+    Context processor to add the latest 5 news items to the template context.
+    """
+    ctx_latest_news = News.objects.order_by('-created_at')[:5]
+    return {'ctx_latest_news': ctx_latest_news}
