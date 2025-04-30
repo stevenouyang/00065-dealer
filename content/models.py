@@ -1,7 +1,8 @@
 from django.db import models
-from wagtail.admin.panels import FieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill, ResizeToFit, Adjust
+from solo.models import SingletonModel
 
 # Create your models here.
 class LinkBanner(models.Model):
@@ -65,3 +66,100 @@ class Slider(models.Model):
 
     def __str__(self):
         return self.title
+
+class BrandingSetting(SingletonModel):
+    pass
+
+class ContentSetting(SingletonModel):
+    product_page_image = models.ImageField(upload_to='products/', blank=True, null=True)
+
+    footer_image = models.ImageField(upload_to='footer/', blank=True, null=True)
+    footer_description = models.CharField(max_length=140, blank=True, null=True)
+
+    bottom_cta_1_title = models.CharField(max_length=40, blank=True, null=True)
+    bottom_cta_1_image = models.ImageField(upload_to='cta/', blank=True, null=True)
+    bottom_cta_1_desc = models.CharField(max_length=100, blank=True, null=True)
+    bottom_cta_1_button_text = models.CharField(max_length=20, blank=True, null=True)
+    bottom_cta_1_icon = models.CharField(max_length=20, blank=True, null=True)
+    bottom_cta_1_button_link = models.URLField(blank=True, null=True)
+    bottom_cta_1_new_tab = models.BooleanField(default=False)
+
+    bottom_cta_2_title = models.CharField(max_length=40, blank=True, null=True)
+    bottom_cta_2_image = models.ImageField(upload_to='cta/', blank=True, null=True)
+    bottom_cta_2_desc = models.CharField(max_length=100, blank=True, null=True)
+    bottom_cta_2_button_text = models.CharField(max_length=20, blank=True, null=True)
+    bottom_cta_2_icon = models.CharField(max_length=20, blank=True, null=True)
+    bottom_cta_2_button_link = models.URLField(blank=True, null=True)
+    bottom_cta_2_new_tab = models.BooleanField(default=False)
+
+    product_highlight_image = models.ImageField(upload_to='highlights/', blank=True, null=True)
+    product_highlight_title_1 = models.CharField(max_length=20, blank=True, null=True)
+    product_highlight_title_2 = models.CharField(max_length=20, blank=True, null=True)
+    product_highlight_desc = models.CharField(max_length=255, blank=True, null=True)
+
+    product_detail_image = models.ImageField(upload_to='details/', blank=True, null=True)
+    product_detail_desc = models.CharField(max_length=255, blank=True, null=True)
+    product_detail_button_text = models.CharField(max_length=20, blank=True, null=True)
+    product_detail_button_link = models.URLField(blank=True, null=True)
+    product_detail_new_tab = models.BooleanField(default=False)
+
+    product_detail_icon_1 = models.CharField(max_length=20, blank=True, null=True)
+    product_detail_desc_1 = models.CharField(max_length=80, blank=True, null=True)
+    product_detail_icon_2 = models.CharField(max_length=20, blank=True, null=True)
+    product_detail_desc_2 = models.CharField(max_length=80, blank=True, null=True)
+    product_detail_icon_3 = models.CharField(max_length=20, blank=True, null=True)
+    product_detail_desc_3 = models.CharField(max_length=80, blank=True, null=True)
+
+
+    panels = [
+        FieldPanel("product_page_image"),
+
+        MultiFieldPanel([
+            FieldPanel("footer_image"),
+            FieldPanel("footer_description"),
+        ], heading="Footer"),
+
+        MultiFieldPanel([
+            FieldPanel("bottom_cta_1_title"),
+            FieldPanel("bottom_cta_1_image"),
+            FieldPanel("bottom_cta_1_desc"),
+            FieldPanel("bottom_cta_1_button_text"),
+            FieldPanel("bottom_cta_1_icon"),
+            FieldPanel("bottom_cta_1_button_link"),
+            FieldPanel("bottom_cta_1_new_tab"),
+        ], heading="Bottom CTA 1"),
+
+        MultiFieldPanel([
+            FieldPanel("bottom_cta_2_title"),
+            FieldPanel("bottom_cta_2_image"),
+            FieldPanel("bottom_cta_2_desc"),
+            FieldPanel("bottom_cta_2_button_text"),
+            FieldPanel("bottom_cta_2_icon"),
+            FieldPanel("bottom_cta_2_button_link"),
+            FieldPanel("bottom_cta_2_new_tab"),
+        ], heading="Bottom CTA 2"),
+
+        MultiFieldPanel([
+            FieldPanel("product_highlight_image"),
+            FieldPanel("product_highlight_title_1"),
+            FieldPanel("product_highlight_title_2"),
+            FieldPanel("product_highlight_desc"),
+        ], heading="Product Highlight"),
+
+        MultiFieldPanel([
+            FieldPanel("product_detail_image"),
+            FieldPanel("product_detail_desc"),
+            FieldPanel("product_detail_button_text"),
+            FieldPanel("product_detail_button_link"),
+            FieldPanel("product_detail_new_tab"),
+            FieldPanel("product_detail_icon_1"),
+            FieldPanel("product_detail_desc_1"),
+            FieldPanel("product_detail_icon_2"),
+            FieldPanel("product_detail_desc_2"),
+            FieldPanel("product_detail_icon_3"),
+            FieldPanel("product_detail_desc_3"),
+        ], heading="Product Detail"),
+    ]
+
+    def __str__(self):
+        return f"Product Page {self.id}"

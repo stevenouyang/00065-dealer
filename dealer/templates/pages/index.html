@@ -79,42 +79,20 @@
             ============================================= -->
             <div class="row m-0 dark" data-height-xs="500" data-height-sm="500" data-height-md="350"
                  data-height-lg="350" data-height-xl="350">
-                <a href="#" class="col-md-4 image_fade border-right"
-                   style="background: url('https://placehold.co/600x400/2b2b2b/525252/jpg') no-repeat center center / cover;">
+                {% for banner in link_banners %}
+                <a href="{{ banner.cta_link }}" class="col-md-4 image_fade border-right"
+                   style="background: url('{{ banner.image_processed.url }}') no-repeat center center / cover;">
                     <div class="bg-overlay">
                         <div
                                 class="bg-overlay-content text-overlay-mask dark align-items-end justify-content-start">
                             <div class="portfolio-desc py-0">
-                                <h3>Ditail Produk</h3>
-                                <span>Denza D9 &rarr;</span>
+                                <h3>{{ banner.title }}</h3>
+                                <span>{{ banner.cta_text }} &rarr;</span>
                             </div>
                         </div>
                     </div>
                 </a>
-                <a href="#" class="col-md-4 image_fade p-0 border-right"
-                   style="background: url('https://placehold.co/600x400/3b3b3b/525252/jpg') no-repeat center center / cover;">
-                    <div class="bg-overlay">
-                        <div
-                                class="bg-overlay-content text-overlay-mask dark align-items-end justify-content-start">
-                            <div class="portfolio-desc py-0">
-                                <h3>Berita</h3>
-                                <span>Launching New Denza &rarr;</span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="#" class="col-md-4 image_fade p-0"
-                   style="background: url('https://placehold.co/600x400/2b2b2b/525252/jpg') no-repeat center center / cover;">
-                    <div class="bg-overlay">
-                        <div
-                                class="bg-overlay-content text-overlay-mask dark align-items-end justify-content-start">
-                            <div class="portfolio-desc py-0">
-                                <h3>Halaman</h3>
-                                <span>Hubungi Kami &rarr;</span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
+                {% endfor %}
             </div>
 
             <!-- Moving car on scroll
@@ -227,7 +205,7 @@
                             <div class="grid-inner">
                                 <div class="portfolio-image">
                                     <a href="{{ product.get_url }}">
-                                        <img src="{{ product.first_image }}" alt="Open Imagination">
+                                        <img src="{{ product.image_trans_header.url }}" alt="Open Imagination">
                                         {% if product.is_coming_soon %}
                                         <div class="filter-p-pricing">
                                             <span class="p-price fw-bold ls-1">Coming Soon</span>

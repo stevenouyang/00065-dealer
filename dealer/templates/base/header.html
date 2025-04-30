@@ -55,9 +55,11 @@
                                                          data-margin="20" data-nav="false" data-pagi="true"
                                                          data-items-xs="1" data-items-sm="2" data-items-md="4"
                                                          data-items-lg="6" data-items-xl="6">
-                                                        <div class="oc-item"><a href="#"><img
-                                                                src="{% static 'dealer/demos/car/images/denza/car-1.png' %}"
-                                                                alt="Car">Denza D9</a></div>
+                                                        {% for product in ctx_products %}
+                                                        <div class="oc-item"><a href="{{ product.get_url }}"><img
+                                                                src="{{ product.image_trans_header.url }}"
+                                                                alt="Car">{{ product.title }}</a></div>
+                                                        {% endfor %}
                                                     </div>
                                                 </div>
                                             </li>
@@ -68,13 +70,18 @@
                         </li>
                         <li class="menu-item"><a class="menu-link" href="{% url 'core:news_list' %}">
                             <div>Berita</div>
-                        </a></li>
-{#                        <li class="menu-item"><a class="menu-link" href="#">#}
-{#                            <div>FAQs</div>#}
-{#                        </a></li>#}
-{#                        <li class="menu-item"><a class="menu-link" href="#">#}
-{#                            <div>Kontak</div>#}
-{#                        </a></li>#}
+                        </a>
+                        </li>
+                        <li class="menu-item sub-menu">
+                            <a class="menu-link"><div>Halaman<i class="sub-menu-indicator fa-solid fa-caret-down"></i></div></a>
+                            <ul class="sub-menu-container d-none" style="">
+                                {% for page in ctx_misc_pages %}
+                                    <li class="menu-item current"><a class="menu-link" href="{{ page.get_url }}">
+                                        <div>{{ page.title }}</div>
+                                    </a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
                     </ul>
                 </nav><!-- #primary-menu end -->
 

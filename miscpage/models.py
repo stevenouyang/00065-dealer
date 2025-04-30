@@ -27,7 +27,7 @@ class MiscPage(index.Indexed, models.Model):
     image = models.ImageField(upload_to="miscpage", null=True, default=None)
     image_processed = ImageSpecField(
         source="image",
-        processors=[ResizeToFill(1400, 800)],
+        processors=[ResizeToFill(1920, 600)],
         format="webP",
         options={"quality": 90},
     )
@@ -90,3 +90,8 @@ class MiscPage(index.Indexed, models.Model):
     def __str__(self):
         return self.title
 
+    def get_url(self):
+        return reverse(
+            "core:dynamic_page",
+            kwargs={"slug": self.slug},
+        )

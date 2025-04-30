@@ -10,6 +10,15 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill, ResizeToFit, Adjust
 from django.urls import reverse
 from autoslug import AutoSlugField
+from imagekit.processors import Resize
+from PIL import Image
+
+class TransparentResizeToFill(Resize):
+    def process(self, image):
+        image = super().process(image)
+        if image.mode != 'RGBA':
+            image = image.convert('RGBA')
+        return image
 
 
 # Create your models here.
@@ -56,14 +65,33 @@ class Product(index.Indexed, ClusterableModel):
         blank=True,
     )
     youtube_embed = models.TextField(blank=True, null=True)
+    youtube_url = models.URLField(blank=True, null=True)
     image_dimension = models.ImageField(upload_to="product/dimension", blank=True, null=True)
-    pdf_catalogue = models.FileField(upload_to='products/pdf_catalogues', blank=True, null=True)
+    image_dimension_thumbnail = ImageSpecField(
+        source="image_trans",
+        format="PNG",
+        options={"quality": 90},
+    )
 
+    pdf_catalogue = models.FileField(upload_to='products/pdf_catalogues', blank=True, null=True)
     highlight_battery = models.CharField(max_length=255, blank=True, null=True)
     highlight_seat = models.CharField(max_length=255, blank=True, null=True)
     highlight_range = models.CharField(max_length=255, blank=True, null=True)
     highlight_power = models.CharField(max_length=255, blank=True, null=True)
     highlight_acceleration = models.CharField(max_length=255, blank=True, null=True)
+
+    image_trans = models.ImageField(upload_to='products/gallery', blank=True, null=True)
+    image_trans_thumbnail = ImageSpecField(
+        source="image_trans",
+        format="PNG",
+        processors=[ResizeToFill(420, 250)],
+        options={"quality": 90},
+    )
+    image_trans_header = ImageSpecField(
+        source="image_trans",
+        format="PNG",
+        options={"quality": 90},
+    )
 
     panels = [
         FieldPanel("title"),
@@ -73,6 +101,8 @@ class Product(index.Indexed, ClusterableModel):
 
         FieldPanel("small_description"),
         FieldPanel("overview"),
+
+        FieldPanel("youtube_url"),
         FieldPanel("youtube_embed"),
         FieldPanel("image_dimension"),
         FieldPanel("pdf_catalogue"),
@@ -82,6 +112,8 @@ class Product(index.Indexed, ClusterableModel):
         FieldPanel("highlight_range"),
         FieldPanel("highlight_power"),
         FieldPanel("highlight_acceleration"),
+
+        FieldPanel("image_trans"),
 
         InlinePanel("product_color_variants"),
         InlinePanel("product_gallery"),
@@ -109,10 +141,17 @@ class ProductGallery(models.Model):
     image = models.ImageField(upload_to='products/gallery')
     image_thumbnail = ImageSpecField(
         source="image",
-        processors=[ResizeToFill(960, 540)],
+        processors=[ResizeToFill(150, 100)],
         format="png",
         options={"quality": 90},
     )
+    image_processed = ImageSpecField(
+        source="image",
+        processors=[ResizeToFill(1280, 840)],
+        format="png",
+        options={"quality": 90},
+    )
+    title = models.CharField(max_length=40, blank=True, null=True)
 
 
 # inline

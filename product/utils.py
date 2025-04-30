@@ -57,8 +57,84 @@ def process_blog_content(blog_content, max_width, max_height, quality=90):
             original_url = item.value.file.url
             image_filename = original_url.split("/")[-1]
 
-            s3_original_path = f"cors/original_images/{image_filename}"
-            s3_resized_path = f"cors/blog_utils/resized_images/{image_filename}"
+            s3_original_path = f"app8/original_images/{image_filename}"
+            s3_resized_path = f"app8/blog_utils/resized_images/{image_filename}"
+
+            try:
+                s3_client.head_object(Bucket=S3_BUCKET_NAME, Key=s3_resized_path)
+                print("Resized image already exists on S3.")
+            except:
+                print("Resizing image...")
+
+                response = requests.get(original_url, stream=True)
+                if response.status_code != 200:
+                    raise Exception(f"Failed to download image: {original_url}")
+
+                resized_image = resize_image(
+                    response.content, max_width, max_height, quality
+                )
+
+                s3_client.upload_fileobj(
+                    resized_image,
+                    S3_BUCKET_NAME,
+                    s3_resized_path,
+                    ExtraArgs={"ContentType": "image/webp", "ACL": "public-read"},
+                )
+
+            item.processed_image_url = (
+                f"{S3_BASE_ACCESS_URL}/{S3_BUCKET_NAME}/{s3_resized_path}"
+            )
+        elif item.block_type in ["unordered_list", "ordered_list"]:
+            item.list_items = extract_list_items(item.value.source)
+
+
+def process_page_content(blog_content, max_width, max_height, quality=90):
+    for item in blog_content:
+        if item.block_type == "image":
+            original_url = item.value.file.url
+            image_filename = original_url.split("/")[-1]
+
+            s3_original_path = f"app8/original_images/{image_filename}"
+            s3_resized_path = f"app8/page_utils/resized_images/{image_filename}"
+
+            try:
+                s3_client.head_object(Bucket=S3_BUCKET_NAME, Key=s3_resized_path)
+                print("Resized image already exists on S3.")
+            except:
+                print("Resizing image...")
+
+                response = requests.get(original_url, stream=True)
+                if response.status_code != 200:
+                    raise Exception(f"Failed to download image: {original_url}")
+
+                resized_image = resize_image(
+                    response.content, max_width, max_height, quality
+                )
+
+                s3_client.upload_fileobj(
+                    resized_image,
+                    S3_BUCKET_NAME,
+                    s3_resized_path,
+                    ExtraArgs={"ContentType": "image/webp", "ACL": "public-read"},
+                )
+
+            item.processed_image_url = (
+                f"{S3_BASE_ACCESS_URL}/{S3_BUCKET_NAME}/{s3_resized_path}"
+            )
+        elif item.block_type in ["unordered_list", "ordered_list"]:
+            item.list_items = extract_list_items(item.value.source)
+
+
+
+
+def process_product_content(blog_content, max_width, max_height, quality=90):
+    for item in blog_content:
+        if item.block_type == "image":
+            original_url = item.value.file.url
+            image_filename = original_url.split("/")[-1]
+
+            s3_original_path = f"app8/original_images/{image_filename}"
+            s3_resized_path = f"app8/product_utils/resized_images/{image_filename}"
 
             try:
                 s3_client.head_object(Bucket=S3_BUCKET_NAME, Key=s3_resized_path)

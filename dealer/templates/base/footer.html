@@ -52,11 +52,9 @@
                             <div class="widget widget_links widget-li-noicon">
                                 <h4 class="text-black">Page</h4>
                                 <ul>
-                                    <li><a href="#">Hubungi Kami</a></li>
-                                    <li><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
+                                    {% for page in ctx_misc_pages %}
+                                        <li><a href="{{ page.get_url }}">{{ page.title }}</a></li>
+                                    {% endfor %}
                                 </ul>
                             </div>
                         </div>
