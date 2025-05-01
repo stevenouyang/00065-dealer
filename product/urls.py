@@ -10,4 +10,7 @@ urlpatterns = [
     path('berita/<slug:slug>/', views.news_detail, name='news_detail'),
     path('hubungi-kami/', views.static_contact_us, name='static_contact_us'),
     path('halaman/<slug:slug>/', views.dynamic_page, name='dynamic_page'),
+    path('whatsapp/', views.whatsapp, name='whatsapp'),
 ]
+
+

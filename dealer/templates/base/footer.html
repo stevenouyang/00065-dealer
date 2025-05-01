@@ -1,5 +1,4 @@
 {% load static %}
-{% load wagtailsettings_tags %}
 
 <footer id="footer" class="dark border-0" style="background-color: #e6e6e6;">
     <div class="container-fluid px-5">
@@ -13,24 +12,24 @@
                     <div class="row col-mb-30">
                         <div class="col-6 col-lg-3">
                             <div class="widget widget_links widget-li-noicon">
-                                <h4 class="text-black">Social Media</h4>
+                                <h4 class="text-black">Media Sosial</h4>
                                 <ul>
-                                    {% if globalsetting.SocialSetting.instagram_link %}
-                                        <li><a href="{{ globalsetting.SocialSetting.instagram_link }}" target="_blank">Instagram</a>
+                                    {% if settings.globalsetting.SocialSetting.instagram_link %}
+                                        <li><a href="{{ settings.globalsetting.SocialSetting.instagram_link }}" target="_blank">Instagram</a>
                                         </li>
                                     {% endif %}
-                                    {% if globalsetting.SocialSetting.tiktok_link %}
-                                        <li><a href="{{ globalsetting.SocialSetting.tiktok_link }}" target="_blank">Tiktok</a></li>
+                                    {% if settings.globalsetting.SocialSetting.tiktok_link %}
+                                        <li><a href="{{ settings.globalsetting.SocialSetting.tiktok_link }}" target="_blank">Tiktok</a></li>
                                     {% endif %}
-                                    {% if globalsetting.SocialSetting.youtube_link %}
-                                        <li><a href="{{ globalsetting.SocialSetting.youtube_link }}" target="_blank">Youtube</a></li>
+                                    {% if settings.globalsetting.SocialSetting.youtube_link %}
+                                        <li><a href="{{ settings.globalsetting.SocialSetting.youtube_link }}" target="_blank">Youtube</a></li>
                                     {% endif %}
-                                    {% if globalsetting.SocialSetting.facebook_link %}
-                                        <li><a href="{{ globalsetting.SocialSetting.facebook_link }}" target="_blank">Facebook</a>
+                                    {% if settings.globalsetting.SocialSetting.facebook_link %}
+                                        <li><a href="{{ settings.globalsetting.SocialSetting.facebook_link }}" target="_blank">Facebook</a>
                                         </li>
                                     {% endif %}
-                                    {% if globalsetting.SocialSetting.linkedin_link %}
-                                        <li><a href="{{ globalsetting.SocialSetting.linkedin_link }}" target="_blank">Linkedin</a>
+                                    {% if settings.globalsetting.SocialSetting.linkedin_link %}
+                                        <li><a href="{{ settings.globalsetting.SocialSetting.linkedin_link }}" target="_blank">Linkedin</a>
                                         </li>
                                     {% endif %}
                                 </ul>
@@ -38,7 +37,7 @@
                         </div>
                         <div class="col-6 col-lg-3">
                             <div class="widget widget_links widget-li-noicon">
-                                <h4 class="text-black">Product</h4>
+                                <h4 class="text-black">Produk</h4>
                                 <ul>
                                     {% for product in ctx_products %}
                                         <li><a href="{{ product.get_url }}">{{ product.title|truncatechars:25 }}</a>
@@ -50,7 +49,7 @@
                         </div>
                         <div class="col-6 col-lg-3">
                             <div class="widget widget_links widget-li-noicon">
-                                <h4 class="text-black">Latest News</h4>
+                                <h4 class="text-black">Berita dan Blog</h4>
                                 <ul>
                                     {% for news in ctx_latest_news %}
                                         <li><a href="{{ news.get_url }}">{{ news.title|truncatechars:25 }}</a></li>
@@ -60,7 +59,7 @@
                         </div>
                         <div class="col-6 col-lg-3">
                             <div class="widget widget_links widget-li-noicon">
-                                <h4 class="text-black">Page</h4>
+                                <h4 class="text-black">Halaman</h4>
                                 <ul>
                                     {% for page in ctx_misc_pages %}
                                         <li><a href="{{ page.get_url }}">{{ page.title }}</a></li>

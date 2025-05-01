@@ -28,9 +28,10 @@
         ---------------------*/
         {% for color_variant in product_color_variants %}
         .dark .swiper-pagination span:nth-child({{ forloop.counter }}):hover,
-        .dark .swiper-pagination span:nth-child({{ forloop.counter }}) {background-color: #7F858D}
+        .dark .swiper-pagination span:nth-child({{ forloop.counter }}) {
+            background-color: #{{ color_variant.color_hex }};
+        }
         {% endfor %}
-
 
         /*--------------------
         Background
@@ -311,7 +312,7 @@
                             <div class="card-body">
                                 <h3 class="card-title">Hubungi kami untuk melakukan test drive.</h3>
                                 <p>Dapatkan juga penawaran terbatas dan berbagai promo lainnya.</p>
-                                <a href="#"
+                                <a href="{% url 'core:whatsapp' %}" target="_blank"
                                    class="button button-rounded m-0 button-large w-100 side-panel-trigger text-center text-transform-none">Hubungi
                                     Kami</a>
                             </div>

@@ -1,11 +1,12 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from collections import defaultdict
 from news.models import News
 from miscpage.models import MiscPage
 from .models import Product, ProductGallery, CarSpecCategory, CarSpec, ProductCarSpec
 from content.models import Slider, LinkBanner
 from .utils import process_blog_content, process_product_content, set_main_images, process_page_content
-
+from globalsetting.models import ContactSetting
+import urllib.parse
 
 
 
@@ -101,3 +102,24 @@ def dynamic_page(request, slug):
     context = {'page_item': page_item}
 
     return render(request, "pages/dynamic_page.html", context)
+
+def whatsapp(request):
+    contact_setting = ContactSetting.load(request_or_site=request)
+    wa_link = contact_setting.whatsapp_link
+
+    product_id = request.GET.get("product_id")
+    product = Product.objects.filter(id=int(product_id)).first() if product_id else None
+
+    if product:
+        message = f"Halo Denza Indonesia, saya tertarik dengan produk “{product.title}”"
+    else:
+        message = "Halo Denza Indonesia"
+
+    encoded_message = urllib.parse.quote(message)
+
+    if wa_link:
+        final_link = f"{wa_link}&text={encoded_message}"
+    else:
+        final_link = "/"
+
+    return redirect(final_link)

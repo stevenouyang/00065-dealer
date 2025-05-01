@@ -125,7 +125,7 @@
 
 <!-- Contact Button
 ============================================= -->
-<div id="contact-me" class="bi-whatsapp side-panel-trigger bg-color"></div>
+<a href="{% url 'core:whatsapp' %}?{% if product_item %}product_id={{ product_item.id }}{% endif %}" target="_blank"><div id="contact-me" class="bi-whatsapp bg-whatsapp"></div></a>
 
 <!-- JavaScripts
 ============================================= -->

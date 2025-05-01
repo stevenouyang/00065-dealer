@@ -629,11 +629,13 @@ textarea.border-form-control {
 }
 
 #contact-me {
+	box-shadow: 2px 2px 5px 1px rgb(0 0 0 / 15%);
+	padding-top: 6px;
 	position: fixed;
 	z-index: 299;
-	width: 40px;
-	height: 40px;
-	font-size: 20px;
+	width: 50px;
+	height: 50px;
+	font-size: 28px;
 	line-height: 36px;
 	text-align: center;
 	color: #FFF;
@@ -642,14 +644,45 @@ textarea.border-form-control {
 	right: 30px;
 	bottom: 30px;
 	cursor: pointer;
-	border-radius: 2px;
+	border-radius: 10px;
 	-webkit-transform: translateY(0);
 	-ms-transform: translateY(0);
 	-o-transform: translateY(0);
 	transform: translateY(0);
 	-webkit-transition: transform .3s ease;
 	-o-transition: transform .3s ease;
+	overflow: hidden;
 	transition: transform .3s ease;
+		background: linear-gradient(135deg, #27d368 0%, #239b50 100%) !important;
+}
+
+
+#contact-me::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: -100%;
+	width: 200%;
+	height: 100%;
+	background: linear-gradient(
+		120deg,
+		rgba(255, 255, 255, 0) 0%,
+		rgba(255, 255, 255, 0.05) 20%,
+		rgba(255, 255, 255, 0.3) 40%,
+		rgba(255, 255, 255, 0.05) 70%,
+		rgba(255, 255, 255, 0) 100%
+	);
+	transform: skewX(-20deg);
+	animation: metallic-shine 2.5s linear infinite;
+}
+
+@keyframes metallic-shine {
+	0% {
+		left: -150%;
+	}
+	100% {
+		left: 150%;
+	}
 }
 
 .gototop-active #contact-me {
