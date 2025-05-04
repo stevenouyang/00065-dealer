@@ -12,6 +12,7 @@ from django.urls import reverse
 from autoslug import AutoSlugField
 from imagekit.processors import Resize
 from PIL import Image
+from solo.models import SingletonModel
 
 class TransparentResizeToFill(Resize):
     def process(self, image):
