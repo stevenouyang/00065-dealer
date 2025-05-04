@@ -217,6 +217,5 @@ AWS_S3_SECURE_URLS = False
 AWS_S3_USE_SLL = True
 
 AWS_S3_OBJECT_PARAMETERS = {
-    "CacheControl": "max-age=86400, public",
-    "Expires": "Fri, 25 Feb 2025 00:00:00 GMT",
+    'CacheControl': 'max-age=2592000, public',
 }
