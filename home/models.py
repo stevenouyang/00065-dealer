@@ -6,7 +6,7 @@ from modelcluster.models import ClusterableModel
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
-class LinkPage(Page, ClusterableModel):
+class LinkPage(Page):
     max_count = 1
 
     description = models.TextField(blank=True)
