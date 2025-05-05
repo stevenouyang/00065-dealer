@@ -5,6 +5,8 @@ from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from modelcluster.models import ClusterableModel
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
+from wagtail import blocks
+from wagtail.fields import StreamField
 
 class LinkPage(Page):
     max_count = 1
@@ -12,6 +14,14 @@ class LinkPage(Page):
     description = models.TextField(blank=True)
     enable_social_link = models.BooleanField(default=False)
     enable_floating_whatsapp = models.BooleanField(default=False)
+
+    primary_color = models.CharField(max_length=6, default='0f0f0f')
+    secondary_color = models.CharField(max_length=6, default='0f0f0f')
+    background_color = models.CharField(max_length=6, default='f2f2f2')
+
+    meta_title = models.CharField(max_length=255, blank=True)
+    meta_desc = models.TextField(blank=True)
+    meta_key = models.CharField(max_length=255, blank=True)
 
     content_panels = Page.content_panels + [
         FieldPanel('description'),
@@ -28,9 +38,9 @@ class LinkPage(Page):
 
 class LinkItem(Orderable):
     TYPE_CHOICES = [
-        ('option', 'Option'),
         ('link', 'Link'),
         ('image', 'Image'),
+        ('text_content', 'Text Content'),
     ]
 
     page = ParentalKey(LinkPage, related_name='link_items')
@@ -47,12 +57,29 @@ class LinkItem(Orderable):
         options={'quality': 90}
     )
 
+    text_content = StreamField(
+        [
+            (
+                "paragraph",
+                blocks.RichTextBlock(features=["p", "a"]),
+            ),
+            (
+                "h4",
+                blocks.CharBlock(features=["h4"]),
+            ),
+        ],
+        use_json_field=True,
+        null=True,
+        blank=True,
+    )
+
     panels = [
         FieldPanel('type'),
         FieldPanel('title'),
         FieldPanel('subtitle'),
         FieldPanel('link'),
         FieldPanel('image'),
+        FieldPanel('text_content'),
     ]
 
     class Meta:

@@ -22,7 +22,7 @@ def hide_default_menu_items(request, menu_items):
     filtered_menu_items = [
         item
         for item in menu_items
-        if item.name not in ["help", "documents", "images", "Sites", "Task", "explorer", "reports"]
+        if item.name not in ["help", "images", "Task", "reports"]
     ]
 
     # Print every menu in the filtered_menu_items list
@@ -39,7 +39,7 @@ def hide_default_menu_items(request, menu_items):
         item
         for item in menu_items
         if item.name
-        not in ["workflows", "sites", "collections", "redirects", "workflow-tasks"]
+        not in ["workflows", "collections", "redirects", "workflow-tasks"]
     ]
 
 
