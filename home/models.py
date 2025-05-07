@@ -9,12 +9,15 @@ from wagtail import blocks
 from wagtail.fields import StreamField
 
 class LinkPage(Page):
-    max_count = 1
-
     description = models.TextField(blank=True)
     enable_social_link = models.BooleanField(default=False)
     enable_floating_whatsapp = models.BooleanField(default=False)
 
+    THEME_CHOICES = (
+        ('light', 'Light'),
+        ('dark', 'Dark'),
+    )
+    theme = models.CharField(max_length=10, choices=THEME_CHOICES, default='light')
     primary_color = models.CharField(max_length=6, default='0f0f0f')
     secondary_color = models.CharField(max_length=6, default='0f0f0f')
     background_color = models.CharField(max_length=6, default='f2f2f2')
@@ -28,8 +31,18 @@ class LinkPage(Page):
         MultiFieldPanel([
             FieldPanel('enable_social_link'),
             FieldPanel('enable_floating_whatsapp'),
+            FieldPanel('theme'),
+            FieldPanel('primary_color'),
+            FieldPanel('secondary_color'),
+            FieldPanel('background_color'),
         ], heading="Settings"),
         InlinePanel('link_items', label="Link Items"),
+    ]
+
+    promote_panels = Page.promote_panels + [
+        FieldPanel('meta_title'),
+        FieldPanel('meta_desc'),
+        FieldPanel('meta_key'),
     ]
 
     class Meta:
@@ -44,7 +57,7 @@ class LinkItem(Orderable):
     ]
 
     page = ParentalKey(LinkPage, related_name='link_items')
-    type = models.CharField(max_length=10, choices=TYPE_CHOICES, default='link')
+    type = models.CharField(max_length=20, choices=TYPE_CHOICES, default='link')
     title = models.CharField(max_length=255)
     subtitle = models.CharField(max_length=255, blank=True)
     link = models.URLField(blank=True)

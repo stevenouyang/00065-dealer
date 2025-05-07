@@ -68,7 +68,37 @@ class Slider(models.Model):
         return self.title
 
 class BrandingSetting(SingletonModel):
-    pass
+    site_name = models.CharField(max_length=255, verbose_name="Site Name", default="Denza")
+    company_name = models.CharField(max_length=255, verbose_name="Company Name", default="Denza Indonesia")
+
+    logo = models.ImageField(upload_to='branding/logo/', blank=True, null=True, verbose_name="Logo")
+    logo_processed = ImageSpecField(
+        source="logo",
+        processors=[ResizeToFill(1920, 600)],
+        format="webP",
+        options={"quality": 90},
+    )
+
+    favicon = models.ImageField(upload_to='branding/favicon/', blank=True, null=True, verbose_name="Favicon")
+    favicon_processed = ImageSpecField(
+        source="favicon",
+        processors=[ResizeToFill(1920, 600)],
+        format="webP",
+        options={"quality": 90},
+    )
+
+    panels = [
+        FieldPanel("site_name"),
+        FieldPanel("company_name"),
+        FieldPanel("logo"),
+        FieldPanel("favicon"),
+    ]
+
+    def __str__(self):
+        return "Branding Settings"
+
+    class Meta:
+        verbose_name = "Branding Setting"
 
 class ContentSetting(SingletonModel):
     product_page_image = models.ImageField(upload_to='products/', blank=True, null=True)

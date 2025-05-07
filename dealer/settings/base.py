@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "tailwind",
+    "theme",
     "news",
     "globalsetting",
     "product",
@@ -67,6 +69,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "dealer.urls"
+
+TAILWIND_APP_NAME = "theme"
 
 TEMPLATES = [
     {
