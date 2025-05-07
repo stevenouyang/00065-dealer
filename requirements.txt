@@ -48,6 +48,7 @@ django-solo==2.4.0
 django-storages==1.14.5
 django-stubs-ext==5.1.2
 django-taggit==5.0.1
+django-tailwind==4.0.1
 django-tasks==0.6.1
 django-timezone-field==7.1
 django-treebeard==4.7.1
