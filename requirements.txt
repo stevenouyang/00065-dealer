@@ -33,6 +33,7 @@ django-autoslug==1.9.9
 django-brotli==0.3.0
 django-browser-reload==1.16.0
 django-celery-beat==2.7.0
+django-colorfield==0.14.0
 django-compressor==4.5.1
 django-debug-toolbar==4.4.6
 django-dotenv==1.4.2
@@ -44,6 +45,7 @@ django-minify-html==1.12.0
 django-modelcluster==6.3
 django-permissionedforms==0.1
 django-pipeline==4.0.0
+django-prometheus==2.3.1
 django-solo==2.4.0
 django-storages==1.14.5
 django-stubs-ext==5.1.2
@@ -90,6 +92,7 @@ packaging==24.2
 pilkit==3.0
 pillow==10.4.0
 pillow_heif==0.18.0
+prometheus_client==0.21.1
 prompt_toolkit==3.0.48
 psycopg2==2.9.9
 pycparser==2.22
@@ -137,6 +140,7 @@ uvloop==0.21.0
 vine==5.1.0
 wagtail==6.4.1
 wagtail-autocomplete==0.12.0
+wagtail-color-panel==1.6.0
 watchdog==4.0.2
 watchfiles==1.0.4
 wcwidth==0.2.13
