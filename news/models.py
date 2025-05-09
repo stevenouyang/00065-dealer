@@ -143,3 +143,5 @@ class News(index.Indexed, models.Model):
             kwargs={"slug": self.slug},
         )
 
+    def get_absolute_url(self):
+        return self.get_url()

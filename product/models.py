@@ -135,6 +135,8 @@ class Product(index.Indexed, ClusterableModel):
             kwargs={"slug": self.slug},
         )
 
+    def get_absolute_url(self):
+        return self.get_url()
 
 # inline
 class ProductGallery(models.Model):

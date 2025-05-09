@@ -95,3 +95,6 @@ class MiscPage(index.Indexed, models.Model):
             "core:dynamic_page",
             kwargs={"slug": self.slug},
         )
+
+    def get_absolute_url(self):
+        return self.get_url()

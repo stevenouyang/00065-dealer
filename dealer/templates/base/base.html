@@ -33,6 +33,9 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'dealer/css/custom.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{% static 'link/images/favicon.png' %}">
+    <link rel="apple-touch-icon-precomposed" href="{% static 'link/images/favicon.png' %}">
+
 
     {% block custom_css %}
 
@@ -42,8 +45,11 @@
 	============================================= -->
     <title>{% block title %}{% endblock title %} - Denza Indonesia</title>
 
-        <!-- Canonical Link -->
-    <link rel="canonical" href="{% if request %}{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}" {% else %}https://www.denza-indonesia.id{% endif %}">
+    <!-- Canonical Link -->
+    <link rel="canonical"
+          href="{% if request %}{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"
+          {% else %}https://www.denza-indonesia.id{% endif %}
+    ">
 
     <!-- Meta Description -->
     <meta name="description" content="{% block meta_description %}{% endblock %}">
@@ -51,12 +57,17 @@
     <!-- Meta Keywords -->
     <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
 
+    <meta name="robots" content="index, follow">
+
 
     <!-- Open Graph (Facebook) Metadata -->
     <meta property="og:title" content="Indopesona - {% block og_title %}{% endblock %}">
     <meta property="og:description" content="{% block og_description %}{% endblock %}">
     <meta property="og:image" content="{% block meta_image %}{% endblock %}">
-    <meta property="og:url" content="{% if request %}{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}" {% else %}https://www.indopesona.id{% endif %}">
+    <meta property="og:url"
+          content="{% if request %}{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}"
+          {% else %}https://www.indopesona.id{% endif %}
+    ">
     <meta property="og:type" content="website">
 
     <style>
@@ -111,11 +122,11 @@
     {% include 'base/header.html' %}
 
     {% block content %}
-    	
+
     {% endblock %}
 
-<!-- Footer
-============================================= -->
+    <!-- Footer
+    ============================================= -->
     {% include 'base/footer.html' %}
 </div><!-- #wrapper end -->
 
@@ -125,7 +136,9 @@
 
 <!-- Contact Button
 ============================================= -->
-<a href="{% url 'core:whatsapp' %}?{% if product_item %}product_id={{ product_item.id }}{% endif %}" target="_blank"><div id="contact-me" class="bi-whatsapp bg-whatsapp"></div></a>
+<a href="{% url 'core:whatsapp' %}?{% if product_item %}product_id={{ product_item.id }}{% endif %}" target="_blank">
+    <div id="contact-me" class="bi-whatsapp bg-whatsapp"></div>
+</a>
 
 <!-- JavaScripts
 ============================================= -->

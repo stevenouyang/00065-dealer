@@ -7,6 +7,7 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 from wagtail import blocks
 from wagtail.fields import StreamField
+from colorfield.fields import ColorField
 
 class LinkPage(Page):
     description = models.TextField(blank=True)
@@ -18,9 +19,9 @@ class LinkPage(Page):
         ('dark', 'Dark'),
     )
     theme = models.CharField(max_length=10, choices=THEME_CHOICES, default='light')
-    primary_color = models.CharField(max_length=6, default='0f0f0f')
-    secondary_color = models.CharField(max_length=6, default='0f0f0f')
-    background_color = models.CharField(max_length=6, default='f2f2f2')
+    primary_color = ColorField(max_length=7, default='#0f0f0f')
+    secondary_color = ColorField(max_length=7, default='#0f0f0f')
+    background_color = ColorField(max_length=7, default='#f2f2f2')
 
     meta_title = models.CharField(max_length=255, blank=True)
     meta_desc = models.TextField(blank=True)
