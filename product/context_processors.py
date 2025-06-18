@@ -4,7 +4,7 @@ from news.models import News
 from content.models import ContentSetting
 
 
-def products_context_processor(request):
+c
     """
     Context processor to add all products to the template context.
     """
