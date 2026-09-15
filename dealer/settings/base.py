@@ -230,3 +230,6 @@ AWS_S3_USE_SLL = True
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=2592000, public',
 }
+
+# Skip (instead of crashing) when the source image is missing from storage.
+IMAGEKIT_DEFAULT_CACHEFILE_BACKEND = "dealer.imagekit_backends.SafeSimple"
