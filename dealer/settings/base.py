@@ -215,10 +215,10 @@ CSRF_TRUSTED_ORIGINS = [
     "https://denza-indonesia.id",
 ]
 
-AWS_ACCESS_KEY_ID = "009ed54e444dc9645ab3"
-AWS_SECRET_ACCESS_KEY = "FRaaDb55PRWIEyYPjTIrykKhB3FePmciINPGXmvI"
-AWS_STORAGE_BUCKET_NAME = "app8"
-AWS_S3_ENDPOINT_URL = "http://nos.wjv-1.neo.id"  # Your MinIO endpoint
+AWS_ACCESS_KEY_ID="00ef6d75b875dbd03d00"
+AWS_SECRET_ACCESS_KEY="XC7ajAGShnueL9syuQ2HftfTLR7tusyzi0XbyMi3"
+AWS_STORAGE_BUCKET_NAME="denza"
+AWS_S3_ENDPOINT_URL="https://nos.wjv-1.neo.id"
 AWS_S3_ADDRESSING_STYLE = "path"  # Use "virtual" if your MinIO supports it
 AWS_QUERYSTRING_AUTH = False  # Remove query params from URLs
 AWS_S3_SIGNATURE_VERSION = "s3v4"
