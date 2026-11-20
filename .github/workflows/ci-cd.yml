@@ -1,0 +1,36 @@
+name: Claverio Production CI/CD (Gateway Builder -> Stateless Runner)
+
+on:
+  push:
+    branches:
+      - production
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+
+concurrency:
+  group: prod-release-${{ github.repository }}
+  cancel-in-progress: false
+
+jobs:
+  trigger-komodo-release:
+    if: vars.USE_SELF_HOSTED_BUILDER != 'true'
+    name: Trigger Komodo Build & Deploy (release-denza-rafael)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Trigger Signed Komodo Webhook on Gateway
+        env:
+          WEBHOOK_SECRET: ${{ secrets.KOMODO_WEBHOOK_SECRET }}
+        run: |
+          if [ -z "$WEBHOOK_SECRET" ]; then
+            echo "Notice: Set repository secret KOMODO_WEBHOOK_SECRET (or configure GitHub Webhook directly) to auto-trigger Komodo."
+            exit 0
+          fi
+          PAYLOAD='{"ref":"refs/heads/production"}'
+          SIG="sha256=$(printf '%s' "$PAYLOAD" | openssl dgst -sha256 -hmac "$WEBHOOK_SECRET" | awk '{print $NF}')"
+          curl -fsS -X POST \
+            -H "Content-Type: application/json" \
+            -H "X-Hub-Signature-256: $SIG" \
+            -d "$PAYLOAD" \
+            "https://ci-hook.claverio.com/listener/github/procedure/release-denza-rafael/production"
