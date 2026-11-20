@@ -109,11 +109,11 @@ WSGI_APPLICATION = "dealer.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "rafael01",
-        "USER": "devadmin",
-        "PASSWORD": "testsatuduatiga",
-        "HOST": "db",
-        "PORT": "5431",
+        "NAME": os.environ.get("DB_NAME", "rafael01"),
+        "USER": os.environ.get("DB_USER", "devadmin"),
+        "PASSWORD": os.environ.get("DB_PASSWORD", ""),
+        "HOST": os.environ.get("DB_HOST", "10.217.0.1"),
+        "PORT": os.environ.get("DB_PORT", "5432"),
     }
 }
 
